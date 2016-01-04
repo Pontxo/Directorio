@@ -4,10 +4,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -55,6 +58,7 @@ public class Directorio {
     JTextField fieldCodigoPostal;
     JLabel labelTelefono;
     JTextField fieldTelefono;
+    JButton botonGuardar, botonCancelar;
         
     public Directorio()
     {
@@ -107,15 +111,19 @@ public class Directorio {
         
         frame.setJMenuBar(menuBar);
         
-        mostrarNuevo();
+        //mostrarNuevo();
+        inicializarNuevo();
         
         frame.setVisible(true);
         
         //Evento para cerrrar la ventana con el boton X de la barra superior
         frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
+        
+        //Metodo donde estaran todos los eventos
+        actionListeners();
     }
     
-    public void mostrarNuevo()
+    public void inicializarNuevo()
     {
         labelNombre = new JLabel("Nombre:");
         labelNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -158,6 +166,9 @@ public class Directorio {
         fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         fieldCodigoPostal.setAlignmentX(Component.LEFT_ALIGNMENT);
         
+        botonGuardar = new JButton("Guardar");
+        botonCancelar = new JButton("Cancelar");
+        
         panelNuevo.add(labelNombre);
         panelNuevo.add(fieldNombre);
         panelNuevo.add(labelApellidos);
@@ -172,9 +183,37 @@ public class Directorio {
         panelNuevo.add(fieldColonia);
         panelNuevo.add(labelCodigoPostal);
         panelNuevo.add(fieldCodigoPostal);
+        panelNuevo.setVisible(false);
+        frame.add(panelNuevo);
+    }
+    
+    public void mostrarBuscar()
+    {
         
-        panelNuevo.setVisible(true);
-        frame.add(panelNuevo);        
+    }
+    
+    public void mostrarBaja()
+    {
+        
+    }
+    
+    public void actionListeners()
+    {
+        itemSalir.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+        
+        itemNuevo.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                panelNuevo.setVisible(true);
+            }
+        });
     }
 
     public static void main(String[] args) {
