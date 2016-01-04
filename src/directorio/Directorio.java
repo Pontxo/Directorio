@@ -1,11 +1,12 @@
 package directorio;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class Directorio {
     
@@ -22,6 +24,8 @@ public class Directorio {
     JPanel panelNuevoNombre;
     JPanel panelNuevoAvenida;
     JPanel panelNuevoColonia;
+    
+    TitledBorder tituloPanelNuevo;
     
     JMenuBar menuBar;
     
@@ -47,6 +51,10 @@ public class Directorio {
     JTextField fieldNumero;
     JLabel labelColonia;
     JTextField fieldColonia;
+    JLabel labelCodigoPostal;
+    JTextField fieldCodigoPostal;
+    JLabel labelTelefono;
+    JTextField fieldTelefono;
         
     public Directorio()
     {
@@ -69,6 +77,9 @@ public class Directorio {
         panelNuevoAvenida.setLayout(new FlowLayout(FlowLayout.LEFT));
         panelNuevoColonia = new JPanel();
         panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
+        
+        tituloPanelNuevo = BorderFactory.createTitledBorder("Alta");
+        panelNuevo.setBorder(tituloPanelNuevo);
         
         menuBar = new JMenuBar();
         
@@ -96,40 +107,8 @@ public class Directorio {
         
         frame.setJMenuBar(menuBar);
         
-        labelNombre = new JLabel("Nombre:");
-        fieldNombre = new JTextField(15);
-        fieldNombre.setMinimumSize(new Dimension(25,250));
-        labelApellidos = new JLabel("Apellidos:");
-        fieldApellidos = new JTextField(15);
-        fieldApellidos.setMinimumSize(new Dimension(25,250));
-        labelAvenida = new JLabel("Avenida:");
-        fieldAvenida = new JTextField(15);
-        fieldAvenida.setMinimumSize(new Dimension(25,250));
-        labelNumero = new JLabel("Numero:  ");
-        fieldNumero = new JTextField(5);
-        fieldNumero.setMinimumSize(new Dimension(25,100));
-        labelColonia = new JLabel("Colonia: ");
-        fieldColonia = new JTextField(15);
-        fieldColonia.setMinimumSize(new Dimension(25,250));
+        mostrarNuevo();
         
-        panelNuevoNombre.add(labelNombre);
-        panelNuevoNombre.add(fieldNombre);
-        panelNuevoNombre.add(labelApellidos);
-        panelNuevoNombre.add(fieldApellidos);
-        
-        panelNuevoAvenida.add(labelAvenida);
-        panelNuevoAvenida.add(fieldAvenida);
-        panelNuevoAvenida.add(labelNumero);
-        panelNuevoAvenida.add(fieldNumero);
-        
-        panelNuevoColonia.add(labelColonia);
-        panelNuevoColonia.add(fieldColonia);
-        
-        panelNuevo.add(panelNuevoNombre);
-        panelNuevo.add(panelNuevoAvenida);
-        panelNuevo.add(panelNuevoColonia);
-        
-        frame.add(panelNuevo);
         frame.setVisible(true);
         
         //Evento para cerrrar la ventana con el boton X de la barra superior
@@ -138,7 +117,64 @@ public class Directorio {
     
     public void mostrarNuevo()
     {
+        labelNombre = new JLabel("Nombre:");
+        labelNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldNombre = new JTextField(15);
+        fieldNombre.setMinimumSize(new Dimension(25,250));
+        fieldNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         
+        labelApellidos = new JLabel("Apellidos:");
+        labelApellidos.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldApellidos = new JTextField(15);
+        fieldApellidos.setMinimumSize(new Dimension(25,250));
+        fieldApellidos.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelTelefono = new JLabel("Telefono:");
+        labelTelefono.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldTelefono = new JTextField(10);
+        fieldTelefono.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelAvenida = new JLabel("Avenida:");
+        labelAvenida.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldAvenida = new JTextField(15);
+        fieldAvenida.setMinimumSize(new Dimension(25,250));
+        fieldAvenida.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelNumero = new JLabel("Numero:");
+        labelNumero.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldNumero = new JTextField(10);
+        fieldNumero.setMinimumSize(new Dimension(25,100));
+        fieldNumero.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelColonia = new JLabel("Colonia: ");
+        labelColonia.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldColonia = new JTextField(15);
+        fieldColonia.setMinimumSize(new Dimension(25,250));
+        fieldColonia.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelCodigoPostal = new JLabel("Codigo Postal:");
+        labelCodigoPostal.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldCodigoPostal = new JTextField(10);
+        fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
+        fieldCodigoPostal.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        panelNuevo.add(labelNombre);
+        panelNuevo.add(fieldNombre);
+        panelNuevo.add(labelApellidos);
+        panelNuevo.add(fieldApellidos);
+        panelNuevo.add(labelTelefono);
+        panelNuevo.add(fieldTelefono);
+        panelNuevo.add(labelAvenida);
+        panelNuevo.add(fieldAvenida);
+        panelNuevo.add(labelNumero);
+        panelNuevo.add(fieldNumero);
+        panelNuevo.add(labelColonia);
+        panelNuevo.add(fieldColonia);
+        panelNuevo.add(labelCodigoPostal);
+        panelNuevo.add(fieldCodigoPostal);
+        
+        panelNuevo.setVisible(true);
+        frame.add(panelNuevo);        
     }
 
     public static void main(String[] args) {
