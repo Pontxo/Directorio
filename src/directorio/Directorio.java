@@ -1,18 +1,25 @@
 package directorio;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Directorio {
     
     JFrame frame;
-    JPanel panel;
+    JPanel panelNuevo;
+    JPanel panelNuevoNombre;
     
     JMenuBar menuBar;
     
@@ -27,6 +34,9 @@ public class Directorio {
     JMenu menuAyuda;
     JMenuItem itemAyuda;
     JMenuItem itemAbout;
+    
+    JLabel labelNombre;
+    JTextField fieldNombre;
         
     public Directorio()
     {
@@ -38,8 +48,13 @@ public class Directorio {
         frame = new JFrame("Directorio");
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
+        frame.setLayout(new GridBagLayout());
         
-        panel = new JPanel();
+        panelNuevo = new JPanel();
+        panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
+        
+        panelNuevoNombre = new JPanel();
+        panelNuevoNombre.setLayout(new FlowLayout());
         
         menuBar = new JMenuBar();
         
@@ -67,10 +82,25 @@ public class Directorio {
         
         frame.setJMenuBar(menuBar);
         
+        labelNombre = new JLabel("Nombre:");
+        fieldNombre = new JTextField(10);
+        fieldNombre.setMinimumSize(new Dimension(25,250));
+        
+        panelNuevoNombre.add(labelNombre);
+        panelNuevoNombre.add(fieldNombre);
+        
+        panelNuevo.add(panelNuevoNombre);
+        
+        frame.add(panelNuevo);
         frame.setVisible(true);
         
         //Evento para cerrrar la ventana con el boton X de la barra superior
         frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
+    }
+    
+    public void mostrarNuevo()
+    {
+        
     }
 
     public static void main(String[] args) {
