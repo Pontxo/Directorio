@@ -1,9 +1,9 @@
 package directorio;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -22,13 +22,8 @@ import javax.swing.border.TitledBorder;
 
 public class Directorio {
     
+    //Inicia declaracion de variables y componentes del menu principal
     JFrame frame;
-    JPanel panelNuevo;
-    JPanel panelNuevoNombre;
-    JPanel panelNuevoAvenida;
-    JPanel panelNuevoColonia;
-    
-    TitledBorder tituloPanelNuevo;
     
     JMenuBar menuBar;
     
@@ -43,6 +38,16 @@ public class Directorio {
     JMenu menuAyuda;
     JMenuItem itemAyuda;
     JMenuItem itemAbout;
+    //Termina declaracion de variables y componentes del menu principal
+    
+    //Inicia declaracion de variables y componentes de modulo "Nuevo"
+    JPanel panelNuevo;
+    JPanel panelNuevoNombre;
+    JPanel panelNuevoAvenida;
+    JPanel panelNuevoColonia;
+    JPanel panelNuevoBotones;
+    
+    TitledBorder tituloPanelNuevo;
     
     JLabel labelNombre;
     JTextField fieldNombre;
@@ -59,7 +64,16 @@ public class Directorio {
     JLabel labelTelefono;
     JTextField fieldTelefono;
     JButton botonGuardar, botonCancelar;
-        
+    //Termina declaracion de variables y componentes de modulo "Nuevo"
+    
+    //Inicia declaracion de variables y componentes de modulo "Modificar"
+    JPanel panelModificar;
+    //Termina declaracion de variables y componentes de modulo "Nuevo"
+    
+    //Inicia declaracion de variables y componentes de modulo "Baja"
+    JPanel panelBaja;
+    //Termina declaracion de variables y componentes de modulo "Baja"
+   
     public Directorio()
     {
         inicializarComponentes();
@@ -70,20 +84,8 @@ public class Directorio {
         frame = new JFrame("Directorio");
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
-        frame.setLayout(new GridBagLayout());
-        
-        panelNuevo = new JPanel();
-        panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
-        
-        panelNuevoNombre = new JPanel();
-        panelNuevoNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panelNuevoAvenida = new JPanel();
-        panelNuevoAvenida.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panelNuevoColonia = new JPanel();
-        panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
-        
-        tituloPanelNuevo = BorderFactory.createTitledBorder("Alta");
-        panelNuevo.setBorder(tituloPanelNuevo);
+        frame.setLayout(new BorderLayout());
+        //frame.setLayout(new GridBagLayout());
         
         menuBar = new JMenuBar();
         
@@ -113,6 +115,7 @@ public class Directorio {
         
         //mostrarNuevo();
         inicializarNuevo();
+        //inicializarModificar();
         
         frame.setVisible(true);
         
@@ -125,6 +128,21 @@ public class Directorio {
     
     public void inicializarNuevo()
     {
+        panelNuevo = new JPanel();
+        panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
+        
+        panelNuevoNombre = new JPanel();
+        panelNuevoNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelNuevoAvenida = new JPanel();
+        panelNuevoAvenida.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelNuevoColonia = new JPanel();
+        panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelNuevoBotones = new JPanel();
+        panelNuevoBotones.setLayout(new FlowLayout());
+        
+        tituloPanelNuevo = BorderFactory.createTitledBorder("Alta");
+        panelNuevo.setBorder(tituloPanelNuevo);
+        
         labelNombre = new JLabel("Nombre:");
         labelNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldNombre = new JTextField(15);
@@ -169,6 +187,9 @@ public class Directorio {
         botonGuardar = new JButton("Guardar");
         botonCancelar = new JButton("Cancelar");
         
+        panelNuevoBotones.add(botonGuardar);
+        panelNuevoBotones.add(botonCancelar);
+        
         panelNuevo.add(labelNombre);
         panelNuevo.add(fieldNombre);
         panelNuevo.add(labelApellidos);
@@ -183,16 +204,36 @@ public class Directorio {
         panelNuevo.add(fieldColonia);
         panelNuevo.add(labelCodigoPostal);
         panelNuevo.add(fieldCodigoPostal);
+                
         panelNuevo.setVisible(false);
-        frame.add(panelNuevo);
+        panelNuevoBotones.setVisible(false);
+        frame.add(panelNuevo, BorderLayout.CENTER);
+        frame.add(panelNuevoBotones,BorderLayout.SOUTH);
     }
     
-    public void mostrarBuscar()
+    public void inicializarModificar()
     {
+        panelModificar = new JPanel();
+        panelModificar.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
+        //panelModificar.add(labelNombre);
+        //panelModificar.add(fieldNombre);
         
+        panelModificar.setVisible(false);
+        frame.add(panelModificar, BorderLayout.CENTER);
     }
     
-    public void mostrarBaja()
+    public void mostrarNuevo(boolean mostrar)
+    {
+        panelNuevo.setVisible(mostrar);
+        panelNuevoBotones.setVisible(mostrar);
+    }
+    
+    public void mostrarModificar(boolean mostrar)
+    {
+        //panelModificar.setVisible(mostrar);
+    }
+    
+    public void mostrarBaja(boolean mostrar)
     {
         
     }
@@ -211,7 +252,23 @@ public class Directorio {
         {
             public void actionPerformed(ActionEvent e)
             {
-                panelNuevo.setVisible(true);
+                mostrarNuevo(true);
+            }
+        });
+        
+        itemModificar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                mostrarModificar(true);
+            }
+        });
+        
+        botonCancelar.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                mostrarNuevo(false);
             }
         });
     }
