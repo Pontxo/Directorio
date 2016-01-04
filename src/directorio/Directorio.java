@@ -20,6 +20,8 @@ public class Directorio {
     JFrame frame;
     JPanel panelNuevo;
     JPanel panelNuevoNombre;
+    JPanel panelNuevoAvenida;
+    JPanel panelNuevoColonia;
     
     JMenuBar menuBar;
     
@@ -37,6 +39,14 @@ public class Directorio {
     
     JLabel labelNombre;
     JTextField fieldNombre;
+    JLabel labelApellidos;
+    JTextField fieldApellidos;
+    JLabel labelAvenida;
+    JTextField fieldAvenida;
+    JLabel labelNumero;
+    JTextField fieldNumero;
+    JLabel labelColonia;
+    JTextField fieldColonia;
         
     public Directorio()
     {
@@ -54,7 +64,11 @@ public class Directorio {
         panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
         
         panelNuevoNombre = new JPanel();
-        panelNuevoNombre.setLayout(new FlowLayout());
+        panelNuevoNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelNuevoAvenida = new JPanel();
+        panelNuevoAvenida.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panelNuevoColonia = new JPanel();
+        panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
         
         menuBar = new JMenuBar();
         
@@ -83,13 +97,37 @@ public class Directorio {
         frame.setJMenuBar(menuBar);
         
         labelNombre = new JLabel("Nombre:");
-        fieldNombre = new JTextField(10);
+        fieldNombre = new JTextField(15);
         fieldNombre.setMinimumSize(new Dimension(25,250));
+        labelApellidos = new JLabel("Apellidos:");
+        fieldApellidos = new JTextField(15);
+        fieldApellidos.setMinimumSize(new Dimension(25,250));
+        labelAvenida = new JLabel("Avenida:");
+        fieldAvenida = new JTextField(15);
+        fieldAvenida.setMinimumSize(new Dimension(25,250));
+        labelNumero = new JLabel("Numero:  ");
+        fieldNumero = new JTextField(5);
+        fieldNumero.setMinimumSize(new Dimension(25,100));
+        labelColonia = new JLabel("Colonia: ");
+        fieldColonia = new JTextField(15);
+        fieldColonia.setMinimumSize(new Dimension(25,250));
         
         panelNuevoNombre.add(labelNombre);
         panelNuevoNombre.add(fieldNombre);
+        panelNuevoNombre.add(labelApellidos);
+        panelNuevoNombre.add(fieldApellidos);
+        
+        panelNuevoAvenida.add(labelAvenida);
+        panelNuevoAvenida.add(fieldAvenida);
+        panelNuevoAvenida.add(labelNumero);
+        panelNuevoAvenida.add(fieldNumero);
+        
+        panelNuevoColonia.add(labelColonia);
+        panelNuevoColonia.add(fieldColonia);
         
         panelNuevo.add(panelNuevoNombre);
+        panelNuevo.add(panelNuevoAvenida);
+        panelNuevo.add(panelNuevoColonia);
         
         frame.add(panelNuevo);
         frame.setVisible(true);
