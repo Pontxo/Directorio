@@ -11,6 +11,9 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -84,7 +87,7 @@ public class Directorio {
    
     public Directorio() throws ClassNotFoundException, SQLException
     {
-        createDatabaseConnection();
+        //createDatabaseConnection();
         
         inicializarComponentes();
     }
@@ -278,6 +281,14 @@ public class Directorio {
             mostrarModificar(true);
         });
         
+        botonGuardar.addActionListener((ActionEvent e) -> {
+            try {
+                crearRegistro();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         botonCancelar.addActionListener((ActionEvent e) -> {
             mostrarNuevo(false);
         });
@@ -311,6 +322,19 @@ public class Directorio {
             DBG("Error al conectar a base de datos");
         }
         return null;
+    }
+    
+    public void crearRegistro() throws ClassNotFoundException, SQLException
+    {        
+        Statement st = createDatabaseConnection().createStatement();
+        try{
+            st.executeUpdate("INSERT INTO USUARIOS VALUES ('Alfonso', 'Ozuna')");
+        }
+        catch(Throwable e)
+        {
+            DBG("Se ha fallado en la insercion del registro");
+        }
+        
     }
     
     public void DBG(String text)
