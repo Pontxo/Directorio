@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -79,8 +82,10 @@ public class Directorio {
     JPanel panelBaja;
     //Termina declaracion de variables y componentes de modulo "Baja"
    
-    public Directorio()
+    public Directorio() throws ClassNotFoundException, SQLException
     {
+        createDatabaseConnection();
+        
         inicializarComponentes();
     }
     
@@ -281,8 +286,39 @@ public class Directorio {
             mostrarModificar(false);
         });
     }
+    
+    public Connection createDatabaseConnection() throws ClassNotFoundException, SQLException
+    {
+        try
+        {
+            String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+            Class.forName(driver);
+            DBG("Class.forName(driver) Success!!!");
+        }
+        catch(ClassNotFoundException e)
+        {
+            DBG("Error al buscar clase");
+        }
+        try
+        {   
+            String url = "jdbc:derby:Directorio_DataBase;create=true;";
+            Connection c = DriverManager.getConnection(url);
+            DBG("getConnection(url) Success!!!");
+            return c;
+        }
+        catch(SQLException e)
+        {
+            DBG("Error al conectar a base de datos");
+        }
+        return null;
+    }
+    
+    public void DBG(String text)
+    {
+        System.out.println(text);
+    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         
         new Directorio();
     }
