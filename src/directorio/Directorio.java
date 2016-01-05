@@ -1,9 +1,9 @@
 package directorio;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -68,6 +69,10 @@ public class Directorio {
     
     //Inicia declaracion de variables y componentes de modulo "Modificar"
     JPanel panelModificar;
+    JPanel panelModificarBotones;
+    JComboBox comboBuscar;
+    JButton botonModificarGuardar;
+    JButton botonModificarCancelar;
     //Termina declaracion de variables y componentes de modulo "Nuevo"
     
     //Inicia declaracion de variables y componentes de modulo "Baja"
@@ -84,8 +89,7 @@ public class Directorio {
         frame = new JFrame("Directorio");
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
-        frame.setLayout(new BorderLayout());
-        //frame.setLayout(new GridBagLayout());
+        frame.setLayout(new GridBagLayout());
         
         menuBar = new JMenuBar();
         
@@ -115,7 +119,7 @@ public class Directorio {
         
         //mostrarNuevo();
         inicializarNuevo();
-        //inicializarModificar();
+        inicializarModificar();
         
         frame.setVisible(true);
         
@@ -127,7 +131,7 @@ public class Directorio {
     }
     
     public void inicializarNuevo()
-    {
+    {        
         panelNuevo = new JPanel();
         panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
         
@@ -138,7 +142,7 @@ public class Directorio {
         panelNuevoColonia = new JPanel();
         panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
         panelNuevoBotones = new JPanel();
-        panelNuevoBotones.setLayout(new FlowLayout());
+        panelNuevoBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
         tituloPanelNuevo = BorderFactory.createTitledBorder("Alta");
         panelNuevo.setBorder(tituloPanelNuevo);
@@ -189,6 +193,7 @@ public class Directorio {
         
         panelNuevoBotones.add(botonGuardar);
         panelNuevoBotones.add(botonCancelar);
+        panelNuevoBotones.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         panelNuevo.add(labelNombre);
         panelNuevo.add(fieldNombre);
@@ -204,22 +209,37 @@ public class Directorio {
         panelNuevo.add(fieldColonia);
         panelNuevo.add(labelCodigoPostal);
         panelNuevo.add(fieldCodigoPostal);
+        panelNuevo.add(panelNuevoBotones);
                 
         panelNuevo.setVisible(false);
         panelNuevoBotones.setVisible(false);
-        frame.add(panelNuevo, BorderLayout.CENTER);
-        frame.add(panelNuevoBotones,BorderLayout.SOUTH);
+        frame.add(panelNuevo);
     }
     
     public void inicializarModificar()
     {
         panelModificar = new JPanel();
         panelModificar.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
-        //panelModificar.add(labelNombre);
-        //panelModificar.add(fieldNombre);
+        panelModificarBotones = new JPanel();
+        panelModificarBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        
+        comboBuscar = new JComboBox();
+        comboBuscar.addItem("Buscar por...");
+        comboBuscar.addItem("Nombre");
+        comboBuscar.addItem("Apellido");
+        comboBuscar.addItem("Telefono");
+        
+        botonModificarGuardar = new JButton("Guardar");
+        botonModificarCancelar = new JButton("Cancelar");
+        
+        panelModificarBotones.add(botonModificarGuardar);
+        panelModificarBotones.add(botonModificarCancelar);
+        
+        panelModificar.add(comboBuscar);
+        panelModificar.add(panelModificarBotones);
         
         panelModificar.setVisible(false);
-        frame.add(panelModificar, BorderLayout.CENTER);
+        frame.add(panelModificar);
     }
     
     public void mostrarNuevo(boolean mostrar)
@@ -230,7 +250,7 @@ public class Directorio {
     
     public void mostrarModificar(boolean mostrar)
     {
-        //panelModificar.setVisible(mostrar);
+        panelModificar.setVisible(mostrar);
     }
     
     public void mostrarBaja(boolean mostrar)
@@ -240,36 +260,25 @@ public class Directorio {
     
     public void actionListeners()
     {
-        itemSalir.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                System.exit(0);
-            }
+        itemSalir.addActionListener((ActionEvent e) -> {
+            System.exit(0);
         });
         
-        itemNuevo.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                mostrarNuevo(true);
-            }
+        itemNuevo.addActionListener((ActionEvent e) -> {
+            mostrarModificar(false);
+            mostrarNuevo(true);
         });
         
-        itemModificar.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                mostrarModificar(true);
-            }
+        itemModificar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(true);
         });
         
-        botonCancelar.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                mostrarNuevo(false);
-            }
+        botonCancelar.addActionListener((ActionEvent e) -> {
+            mostrarNuevo(false);
+        });
+        
+        botonModificarCancelar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(false);
         });
     }
 
