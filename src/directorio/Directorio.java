@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -283,8 +284,12 @@ public class Directorio {
         
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
-                iConexion.crearRegistro(fieldNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
-                        fieldAvenida.getText(), fieldNumero.getText(), fieldColonia.getText(), fieldCodigoPostal.getText());
+                if(iConexion.crearRegistro(fieldNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
+                        fieldAvenida.getText(), fieldNumero.getText(), fieldColonia.getText(), fieldCodigoPostal.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario guardado con exito", "Usuario guardado", 1);
+                    limpiarCampos();
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -297,6 +302,17 @@ public class Directorio {
         botonModificarCancelar.addActionListener((ActionEvent e) -> {
             mostrarModificar(false);
         });
+    }
+    
+    public void limpiarCampos()
+    {
+        fieldNombre.setText("");
+        fieldApellidos.setText("");
+        fieldTelefono.setText("");
+        fieldAvenida.setText("");
+        fieldNumero.setText("");
+        fieldColonia.setText("");
+        fieldCodigoPostal.setText("");
     }
     
     public void DBG(String text)

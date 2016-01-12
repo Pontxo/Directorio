@@ -39,23 +39,28 @@ public class Conexion {
         return null;
     }
     
-    public void crearRegistro(String nombre, String apellidos, String telefono, String avenida, String numero, String colonia, String codigoPostal) throws ClassNotFoundException, SQLException
+    public boolean crearRegistro(String nombre, String apellidos, String telefono, String avenida, String numero, String colonia, String codigoPostal) throws ClassNotFoundException, SQLException
     {
         if(validarRegistroNuevo(nombre, apellidos, telefono, avenida, numero, colonia, codigoPostal))
         {
+            //CAMBIAR A PREPARESTATEMENT
             Statement st = createDatabaseConnection().createStatement();
             try{
                 st.executeUpdate("INSERT INTO USUARIOS VALUES ('"+nombre+"','"+apellidos+"','"+telefono+"','"+avenida+"','"+numero+"','"+colonia+"','"+codigoPostal+"')");
+                return true;
             }
             catch(Throwable e)
             {
                 DBG("Se ha fallado en la insercion del registro");
                 DBG(""+e);
+                JOptionPane.showMessageDialog(null, "Hubo un error en la conexion a la base de datos", "Error", 2);
             }
+            return false;
         }
         else
         {
            JOptionPane.showMessageDialog(null, "Todos los campos deben ser completados", "Error", 2);
+           return false;
         }
         
     }
