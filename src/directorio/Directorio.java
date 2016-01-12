@@ -7,10 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -22,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -85,17 +81,11 @@ public class Directorio {
     JPanel panelBaja;
     //Termina declaracion de variables y componentes de modulo "Baja"
     
-    String nombre, apellidos, telefono, avenida, numero, colonia, codigoPostal;
+    Conexion iConexion;
    
     public Directorio() throws ClassNotFoundException, SQLException
-    {
-        nombre = "";
-        apellidos = "";
-        telefono = "";
-        avenida = "";
-        numero = "";
-        colonia = "";
-        codigoPostal = "";
+    {        
+        iConexion = new Conexion();
         
         //createDatabaseConnection();
         
@@ -293,7 +283,8 @@ public class Directorio {
         
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
-                crearRegistro();                
+                iConexion.crearRegistro(fieldNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
+                        fieldAvenida.getText(), fieldNumero.getText(), fieldColonia.getText(), fieldCodigoPostal.getText());
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -306,69 +297,6 @@ public class Directorio {
         botonModificarCancelar.addActionListener((ActionEvent e) -> {
             mostrarModificar(false);
         });
-    }
-    
-    public Connection createDatabaseConnection() throws ClassNotFoundException, SQLException
-    {
-        try
-        {
-            String driver = "com.mysql.jdbc.Driver";
-            Class.forName(driver);
-            DBG("Class.forName(driver) Success!!!");
-        }
-        catch(ClassNotFoundException e)
-        {
-            DBG("Error al buscar clase");
-        }
-        try
-        {   
-            String url = "jdbc:mysql://localhost:3306/basededatos?"+"user=root&password=";
-            Connection c = DriverManager.getConnection(url);
-            DBG("getConnection(url) Success!!!");
-            return c;
-        }
-        catch(SQLException e)
-        {
-            DBG("Error al conectar a base de datos");
-        }
-        return null;
-    }
-    
-    public void crearRegistro() throws ClassNotFoundException, SQLException
-    {
-        if(validarRegistroNuevo())
-        {
-            Statement st = createDatabaseConnection().createStatement();
-            try{
-                st.executeUpdate("INSERT INTO USUARIOS VALUES ('"+nombre+"','"+apellidos+"','"+telefono+"','"+avenida+"','"+numero+"','"+colonia+"','"+codigoPostal+"')");
-            }
-            catch(Throwable e)
-            {
-                DBG("Se ha fallado en la insercion del registro");
-                DBG(""+e);
-            }
-        }
-        else
-        {
-           JOptionPane.showMessageDialog(null, "Todos los campos deben ser completados", "Error", 2);
-        }
-        
-    }
-    
-    public boolean validarRegistroNuevo()
-    {
-        nombre = fieldNombre.getText();
-        apellidos = fieldApellidos.getText();
-        telefono = fieldTelefono.getText();
-        avenida = fieldAvenida.getText();
-        numero = fieldNumero.getText();
-        colonia = fieldColonia.getText();
-        codigoPostal = fieldCodigoPostal.getText();
-        
-        if(nombre == "" || apellidos == "" || telefono == "" || avenida == "" 
-                || numero == "" || colonia == "" || codigoPostal == "")
-            return false;
-        return true;
     }
     
     public void DBG(String text)
