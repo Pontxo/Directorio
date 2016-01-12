@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -84,9 +85,19 @@ public class Directorio {
     //Inicia declaracion de variables y componentes de modulo "Baja"
     JPanel panelBaja;
     //Termina declaracion de variables y componentes de modulo "Baja"
+    
+    String nombre, apellidos, telefono, avenida, numero, colonia, codigoPostal;
    
     public Directorio() throws ClassNotFoundException, SQLException
     {
+        nombre = "";
+        apellidos = "";
+        telefono = "";
+        avenida = "";
+        numero = "";
+        colonia = "";
+        codigoPostal = "";
+        
         //createDatabaseConnection();
         
         inicializarComponentes();
@@ -283,7 +294,7 @@ public class Directorio {
         
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
-                crearRegistro();
+                crearRegistro();                
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -325,16 +336,39 @@ public class Directorio {
     }
     
     public void crearRegistro() throws ClassNotFoundException, SQLException
-    {        
-        Statement st = createDatabaseConnection().createStatement();
-        try{
-            st.executeUpdate("INSERT INTO USUARIOS VALUES ('Ayleen', 'Ozuna')");
-        }
-        catch(Throwable e)
+    {
+        if(validarRegistroNuevo())
         {
-            DBG("Se ha fallado en la insercion del registro");
+            Statement st = createDatabaseConnection().createStatement();
+            try{
+                st.executeUpdate("INSERT INTO USUARIOS VALUES ('Ayleen', 'Ozuna')");
+            }
+            catch(Throwable e)
+            {
+                DBG("Se ha fallado en la insercion del registro");
+            }
+        }
+        else
+        {
+           JOptionPane.showMessageDialog(null, "Todos los campos deben ser completados", "Error", 2);
         }
         
+    }
+    
+    public boolean validarRegistroNuevo()
+    {
+        nombre = fieldNombre.getText();
+        apellidos = fieldApellidos.getText();
+        telefono = fieldTelefono.getText();
+        avenida = fieldAvenida.getText();
+        numero = fieldNumero.getText();
+        colonia = fieldColonia.getText();
+        codigoPostal = fieldCodigoPostal.getText();
+        
+        if(nombre == "" || apellidos == "" || telefono == "" || avenida == "" 
+                || numero == "" || colonia == "" || codigoPostal == "")
+            return false;
+        return true;
     }
     
     public void DBG(String text)
