@@ -341,11 +341,12 @@ public class Directorio {
         {
             Statement st = createDatabaseConnection().createStatement();
             try{
-                st.executeUpdate("INSERT INTO USUARIOS VALUES ('Ayleen', 'Ozuna')");
+                st.executeUpdate("INSERT INTO USUARIOS VALUES ('"+nombre+"','"+apellidos+"','"+telefono+"','"+avenida+"','"+numero+"','"+colonia+"','"+codigoPostal+"')");
             }
             catch(Throwable e)
             {
                 DBG("Se ha fallado en la insercion del registro");
+                DBG(""+e);
             }
         }
         else
