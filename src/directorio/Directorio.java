@@ -302,7 +302,7 @@ public class Directorio {
     {
         try
         {
-            String driver = "org.apache.derby.jdbc.EmbeddedDriver";
+            String driver = "com.mysql.jdbc.Driver";
             Class.forName(driver);
             DBG("Class.forName(driver) Success!!!");
         }
@@ -312,7 +312,7 @@ public class Directorio {
         }
         try
         {   
-            String url = "jdbc:derby:Directorio_DataBase;create=true;";
+            String url = "jdbc:mysql://localhost:3306/basededatos?"+"user=root&password=";
             Connection c = DriverManager.getConnection(url);
             DBG("getConnection(url) Success!!!");
             return c;
@@ -328,7 +328,7 @@ public class Directorio {
     {        
         Statement st = createDatabaseConnection().createStatement();
         try{
-            st.executeUpdate("INSERT INTO USUARIOS VALUES ('Alfonso', 'Ozuna')");
+            st.executeUpdate("INSERT INTO USUARIOS VALUES ('Ayleen', 'Ozuna')");
         }
         catch(Throwable e)
         {
