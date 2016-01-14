@@ -16,7 +16,9 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -30,6 +32,8 @@ public class Interfaz {
     
     //Inicia declaracion de variables y componentes del menu principal
     JFrame frame;
+    JDesktopPane desktopPane;
+    JInternalFrame iFNuevo;
     
     JMenuBar menuBar;
     
@@ -48,9 +52,6 @@ public class Interfaz {
     
     //Inicia declaracion de variables y componentes de modulo "Nuevo"
     JPanel panelNuevo;
-    JPanel panelNuevoNombre;
-    JPanel panelNuevoAvenida;
-    JPanel panelNuevoColonia;
     JPanel panelNuevoBotones;
     
     TitledBorder tituloPanelNuevo;
@@ -97,6 +98,9 @@ public class Interfaz {
     public void inicializarComponentes()
     {
         frame = new JFrame("Directorio");
+        
+        desktopPane = new JDesktopPane();
+        frame.add(desktopPane);
         
         //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
@@ -154,16 +158,12 @@ public class Interfaz {
     }
     
     public void inicializarNuevo()
-    {        
+    {
+        iFNuevo = new JInternalFrame("Nuevo contacto");
+        
         panelNuevo = new JPanel();
         panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
         
-        panelNuevoNombre = new JPanel();
-        panelNuevoNombre.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panelNuevoAvenida = new JPanel();
-        panelNuevoAvenida.setLayout(new FlowLayout(FlowLayout.LEFT));
-        panelNuevoColonia = new JPanel();
-        panelNuevoColonia.setLayout(new FlowLayout(FlowLayout.LEFT));
         panelNuevoBotones = new JPanel();
         panelNuevoBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
         
