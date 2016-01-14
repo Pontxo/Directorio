@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -12,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -82,6 +85,8 @@ public class Interfaz {
     JPanel panelBaja;
     //Termina declaracion de variables y componentes de modulo "Baja"
     
+    Image icon;
+    
     Conexion iConexion;
 
     public Interfaz()
@@ -90,9 +95,19 @@ public class Interfaz {
         inicializarComponentes();
     }
     
-        public void inicializarComponentes()
+    public void inicializarComponentes()
     {
         frame = new JFrame("Directorio");
+        
+        try{
+            icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/icon.png"));
+            frame.setIconImage(icon);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Error al cargar el ícono");
+        }
+        
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
         frame.setLayout(new GridBagLayout());
@@ -123,7 +138,6 @@ public class Interfaz {
         
         frame.setJMenuBar(menuBar);
         
-        //mostrarNuevo();
         inicializarNuevo();
         inicializarModificar();
         
