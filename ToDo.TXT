@@ -1,7 +1,6 @@
 * Manejar interfaz en JDialogs y evitar usar el frame.
 * Adecuar la ventana para que esté maximizada por defecto.
 * Ponerle una imagen al frame.
-* Cambiar el icono de la ventana.
 * Agregar About.
 * [Modificar/Bajas] Crear un campo de busqueda y un combobox con el criterio de busqueda. Crear una tabla abajo de estos compponentes para mostrar los resultados de la busqueda.
 * Crear opcion para mostrar todo el contenido de la tabla.
