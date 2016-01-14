@@ -98,6 +98,7 @@ public class Interfaz {
     {
         frame = new JFrame("Directorio");
         
+        //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
             icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/icon.png"));
             frame.setIconImage(icon);
@@ -106,6 +107,9 @@ public class Interfaz {
         {
             System.out.println("Error al cargar el ícono");
         }
+        
+        //Linea para que el frame aparezca maximizado por defecto.
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
