@@ -34,6 +34,7 @@ public class Interfaz {
     JFrame frame;
     JDesktopPane desktopPane;
     JInternalFrame iFNuevo;
+    JInternalFrame iFModificar;
     
     JMenuBar menuBar;
     
@@ -261,6 +262,7 @@ public class Interfaz {
         comboBuscar.addItem("Nombre");
         comboBuscar.addItem("Apellido");
         comboBuscar.addItem("Telefono");
+        comboBuscar.setSize(25,250);
         
         botonModificarGuardar = new JButton("Guardar");
         botonModificarCancelar = new JButton("Cancelar");
@@ -272,7 +274,16 @@ public class Interfaz {
         panelModificar.add(panelModificarBotones);
         
         panelModificar.setVisible(false);
-        frame.add(panelModificar);
+        
+        iFModificar = new JInternalFrame("Modificar Usuario");
+        iFModificar.add(panelModificar);
+        iFModificar.pack();
+        iFModificar.setResizable(true);
+        iFModificar.setClosable(true);
+        
+        desktopPane.add(iFModificar);
+        
+        frame.add(iFModificar);
     }
     
     public void mostrarNuevo(boolean mostrar)
@@ -280,10 +291,10 @@ public class Interfaz {
         iFNuevo.setVisible(mostrar);
     }
     
-//    public void mostrarModificar(boolean mostrar)
-//    {
-//        panelModificar.setVisible(mostrar);
-//    }
+    public void mostrarModificar(boolean mostrar)
+    {
+        iFModificar.setVisible(mostrar);
+    }
     
     public void mostrarBaja(boolean mostrar)
     {
@@ -301,9 +312,9 @@ public class Interfaz {
             mostrarNuevo(true);
         });
         
-//        itemModificar.addActionListener((ActionEvent e) -> {
-//            mostrarModificar(true);
-//        });
+        itemModificar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(true);
+        });
         
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
