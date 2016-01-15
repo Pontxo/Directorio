@@ -1,5 +1,6 @@
 package directorio;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -7,6 +8,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
@@ -45,6 +50,18 @@ public class InterfazUpdate {
     
     JLabel labelAltaNombre;
     JTextField fieldAltaNombre;
+    JLabel labelApellidos;
+    JTextField fieldApellidos;
+    JLabel labelAvenida;
+    JTextField fieldAvenida;
+    JLabel labelNumero;
+    JTextField fieldNumero;
+    JLabel labelColonia;
+    JTextField fieldColonia;
+    JLabel labelCodigoPostal;
+    JTextField fieldCodigoPostal;
+    JLabel labelTelefono;
+    JTextField fieldTelefono;
     JButton botonGuardar, botonCancelar;
     //Termina declaracion de variables y componentes de modulo "Alta"
     
@@ -122,20 +139,56 @@ public class InterfazUpdate {
     public void inicializarAlta()
     {
         JPanel panelAlta = new JPanel();
-        panelAlta.setLayout(new FlowLayout());
+        panelAlta.setLayout(new BoxLayout(panelAlta, BoxLayout.Y_AXIS));
         
         iFAlta = new JInternalFrame("Agregar Contacto");
         
         labelAltaNombre = new JLabel("Nombre:");
         fieldAltaNombre = new JTextField(25);
-        fieldAltaNombre.setMinimumSize(new Dimension(25,250));
+        //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
+        
+        labelApellidos = new JLabel("Apellidos:");
+        fieldApellidos = new JTextField(25);
+        //fieldApellidos.setMinimumSize(new Dimension(25,250));
+        
+        labelTelefono = new JLabel("Telefono:");
+        fieldTelefono = new JTextField(10);
+        
+        labelAvenida = new JLabel("Avenida:");
+        fieldAvenida = new JTextField(15);
+        //fieldAvenida.setMinimumSize(new Dimension(25,250));
+        
+        labelNumero = new JLabel("Numero:");
+        fieldNumero = new JTextField(10);
+        //fieldNumero.setMinimumSize(new Dimension(25,100));
+        
+        labelColonia = new JLabel("Colonia: ");
+        fieldColonia = new JTextField(15);
+        //fieldColonia.setMinimumSize(new Dimension(25,250));
+        
+        labelCodigoPostal = new JLabel("Codigo Postal:");
+        fieldCodigoPostal = new JTextField(10);
+        //fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         
         panelAlta.add(labelAltaNombre);
         panelAlta.add(fieldAltaNombre);
+        panelAlta.add(labelApellidos);
+        panelAlta.add(fieldApellidos);
+        panelAlta.add(labelTelefono);
+        panelAlta.add(fieldTelefono);
+        panelAlta.add(labelAvenida);
+        panelAlta.add(fieldAvenida);
+        panelAlta.add(labelNumero);
+        panelAlta.add(fieldNumero);
+        panelAlta.add(labelColonia);
+        panelAlta.add(fieldColonia);
+        panelAlta.add(labelCodigoPostal);
+        panelAlta.add(fieldCodigoPostal);
         
         iFAlta.add(panelAlta);
         iFAlta.pack();
         iFAlta.setClosable(true);
+        iFAlta.setMaximizable(true);
         iFAlta.setResizable(true);
         
         desktopPane.add(iFAlta);
@@ -187,6 +240,10 @@ public class InterfazUpdate {
         });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
+            if(iFAlta.isClosed())
+            {
+                //Insertar codigo aqui
+            }
             mostrarNuevo(true);
         });
         
