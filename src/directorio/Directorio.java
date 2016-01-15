@@ -11,8 +11,8 @@ public class Directorio {
    
     public Directorio() throws ClassNotFoundException, SQLException
     {        
-        iInterfaz = new Interfaz();
-        //iInterfazUpdate = new InterfazUpdate();
+        //iInterfaz = new Interfaz();
+        iInterfazUpdate = new InterfazUpdate();
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

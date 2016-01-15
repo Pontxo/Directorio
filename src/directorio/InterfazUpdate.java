@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
@@ -103,6 +104,8 @@ public class InterfazUpdate {
         
         //Evento para cerrrar la ventana con el boton X de la barra superior
         frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
+        
+        actionListeners();
     }
     
     public void inicializarAlta()
@@ -126,8 +129,26 @@ public class InterfazUpdate {
         
         desktopPane.add(iFAlta);
         
-//        frame.add(desktopPane);
-        iFAlta.setVisible(true);
     }
     
+    public void mostrarNuevo(boolean mostrar) {
+        
+        iFAlta.setVisible(mostrar);
+    }
+    
+    public void actionListeners()
+    {
+        itemSalir.addActionListener((ActionEvent e) -> {
+            System.exit(0);
+        });
+        
+        itemNuevo.addActionListener((ActionEvent e) -> {
+            mostrarNuevo(true);
+        });
+    }
+    
+    public void DBG(String text)
+    {
+        System.out.println(text);
+    }
 }
