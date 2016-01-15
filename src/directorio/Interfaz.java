@@ -34,7 +34,6 @@ public class Interfaz {
     JFrame frame;
     JDesktopPane desktopPane;
     JInternalFrame iFNuevo;
-    JInternalFrame iFModificar;
     
     JMenuBar menuBar;
     
@@ -101,7 +100,7 @@ public class Interfaz {
         frame = new JFrame("Directorio");
         
         desktopPane = new JDesktopPane();
-        //frame.add(desktopPane);
+        frame.add(desktopPane);
         
         //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
@@ -118,7 +117,7 @@ public class Interfaz {
         
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
-        //frame.setLayout(new GridBagLayout());
+        frame.setLayout(new GridBagLayout());
         
         menuBar = new JMenuBar();
         
@@ -159,7 +158,9 @@ public class Interfaz {
     }
     
     public void inicializarNuevo()
-    {       
+    {
+        iFNuevo = new JInternalFrame("Nuevo contacto");
+        
         panelNuevo = new JPanel();
         panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
         
@@ -232,22 +233,10 @@ public class Interfaz {
         panelNuevo.add(labelCodigoPostal);
         panelNuevo.add(fieldCodigoPostal);
         panelNuevo.add(panelNuevoBotones);
-        
-        //panelNuevo.setVisible(false);
-        //panelNuevoBotones.setVisible(false);
-        
-        //public JInternalFrame(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconifiable)
-        iFNuevo = new JInternalFrame("Nuevo Contacto");
-        iFNuevo.add(panelNuevo);
-        iFNuevo.pack();
-        iFNuevo.setResizable(true);
-        iFNuevo.setClosable(true);
-        
-        desktopPane.add(iFNuevo);
-        
-        frame.add(iFNuevo);
-        
-        //iFNuevo.setVisible(true);
+                
+        panelNuevo.setVisible(false);
+        panelNuevoBotones.setVisible(false);
+        frame.add(panelNuevo);
     }
     
     public void inicializarModificar()
@@ -262,7 +251,6 @@ public class Interfaz {
         comboBuscar.addItem("Nombre");
         comboBuscar.addItem("Apellido");
         comboBuscar.addItem("Telefono");
-        comboBuscar.setSize(25,250);
         
         botonModificarGuardar = new JButton("Guardar");
         botonModificarCancelar = new JButton("Cancelar");
@@ -274,26 +262,18 @@ public class Interfaz {
         panelModificar.add(panelModificarBotones);
         
         panelModificar.setVisible(false);
-        
-        iFModificar = new JInternalFrame("Modificar Usuario");
-        iFModificar.add(panelModificar);
-        iFModificar.pack();
-        iFModificar.setResizable(true);
-        iFModificar.setClosable(true);
-        
-        desktopPane.add(iFModificar);
-        
-        frame.add(iFModificar);
+        frame.add(panelModificar);
     }
     
     public void mostrarNuevo(boolean mostrar)
     {
-        iFNuevo.setVisible(mostrar);
+        panelNuevo.setVisible(mostrar);
+        panelNuevoBotones.setVisible(mostrar);
     }
     
     public void mostrarModificar(boolean mostrar)
     {
-        iFModificar.setVisible(mostrar);
+        panelModificar.setVisible(mostrar);
     }
     
     public void mostrarBaja(boolean mostrar)
@@ -308,7 +288,7 @@ public class Interfaz {
         });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
-//            mostrarModificar(false);
+            mostrarModificar(false);
             mostrarNuevo(true);
         });
         
@@ -333,9 +313,9 @@ public class Interfaz {
             mostrarNuevo(false);
         });
         
-//        botonModificarCancelar.addActionListener((ActionEvent e) -> {
-//            mostrarModificar(false);
-//        });
+        botonModificarCancelar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(false);
+        });
     }
     
     public void limpiarCampos()
