@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -46,6 +47,15 @@ public class InterfazUpdate {
     JTextField fieldAltaNombre;
     JButton botonGuardar, botonCancelar;
     //Termina declaracion de variables y componentes de modulo "Alta"
+    
+    //Inicia declaracion de variables y componentes de modulo "Modificar"
+    JPanel panelModificar;
+    JInternalFrame iFModificar;
+    
+    JComboBox comboBuscar;
+    JButton botonModificarGuardar;
+    JButton botonModificarCancelar;
+    //Termina declaracion de variables y componentes de modulo "Modificar"
     
     JDesktopPane desktopPane;
     Image icon;
@@ -99,6 +109,7 @@ public class InterfazUpdate {
         frame.setJMenuBar(menuBar);
         
         inicializarAlta();
+        inicializarModificar();
         
         frame.setVisible(true);
         
@@ -131,9 +142,42 @@ public class InterfazUpdate {
         
     }
     
+    public void inicializarModificar()
+    {
+        panelModificar = new JPanel();
+        panelModificar.setLayout(new FlowLayout());
+        
+        iFModificar = new JInternalFrame("Modificar Contacto");
+        
+        comboBuscar = new JComboBox();
+        comboBuscar.addItem("Buscar por...");
+        comboBuscar.addItem("Nombre");
+        comboBuscar.addItem("Apellido");
+        comboBuscar.addItem("Telefono");
+        
+        botonModificarGuardar = new JButton("Guardar");
+        botonModificarCancelar = new JButton("Cancelar");
+        
+        panelModificar.add(comboBuscar);
+        panelModificar.add(botonModificarGuardar);
+        panelModificar.add(botonModificarCancelar);
+        
+        iFModificar.add(panelModificar);
+        iFModificar.setClosable(true);
+        iFModificar.setResizable(true);
+        iFModificar.pack();
+        
+        desktopPane.add(iFModificar);
+    }
+    
     public void mostrarNuevo(boolean mostrar) {
         
         iFAlta.setVisible(mostrar);
+    }
+    
+    public void mostrarModificar(boolean mostrar) {
+        
+        iFModificar.setVisible(mostrar);
     }
     
     public void actionListeners()
@@ -144,6 +188,10 @@ public class InterfazUpdate {
         
         itemNuevo.addActionListener((ActionEvent e) -> {
             mostrarNuevo(true);
+        });
+        
+        itemModificar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(true);
         });
     }
     
