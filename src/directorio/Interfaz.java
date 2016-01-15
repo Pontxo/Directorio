@@ -100,7 +100,7 @@ public class Interfaz {
         frame = new JFrame("Directorio");
         
         desktopPane = new JDesktopPane();
-        frame.add(desktopPane);
+        //frame.add(desktopPane);
         
         //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
@@ -117,7 +117,7 @@ public class Interfaz {
         
         frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
-        frame.setLayout(new GridBagLayout());
+        //frame.setLayout(new GridBagLayout());
         
         menuBar = new JMenuBar();
         
@@ -158,9 +158,7 @@ public class Interfaz {
     }
     
     public void inicializarNuevo()
-    {
-        iFNuevo = new JInternalFrame("Nuevo contacto");
-        
+    {       
         panelNuevo = new JPanel();
         panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
         
@@ -233,10 +231,22 @@ public class Interfaz {
         panelNuevo.add(labelCodigoPostal);
         panelNuevo.add(fieldCodigoPostal);
         panelNuevo.add(panelNuevoBotones);
-                
-        panelNuevo.setVisible(false);
-        panelNuevoBotones.setVisible(false);
-        frame.add(panelNuevo);
+        
+        //panelNuevo.setVisible(false);
+        //panelNuevoBotones.setVisible(false);
+        
+        //public JInternalFrame(String title, boolean resizable, boolean closable, boolean maximizable, boolean iconifiable)
+        iFNuevo = new JInternalFrame("Nuevo Contacto");
+        iFNuevo.add(panelNuevo);
+        iFNuevo.pack();
+        iFNuevo.setResizable(true);
+        iFNuevo.setClosable(true);
+        
+        desktopPane.add(iFNuevo);
+        
+        frame.add(iFNuevo);
+        
+        //iFNuevo.setVisible(true);
     }
     
     public void inicializarModificar()
@@ -267,14 +277,13 @@ public class Interfaz {
     
     public void mostrarNuevo(boolean mostrar)
     {
-        panelNuevo.setVisible(mostrar);
-        panelNuevoBotones.setVisible(mostrar);
+        iFNuevo.setVisible(mostrar);
     }
     
-    public void mostrarModificar(boolean mostrar)
-    {
-        panelModificar.setVisible(mostrar);
-    }
+//    public void mostrarModificar(boolean mostrar)
+//    {
+//        panelModificar.setVisible(mostrar);
+//    }
     
     public void mostrarBaja(boolean mostrar)
     {
@@ -288,13 +297,13 @@ public class Interfaz {
         });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
-            mostrarModificar(false);
+//            mostrarModificar(false);
             mostrarNuevo(true);
         });
         
-        itemModificar.addActionListener((ActionEvent e) -> {
-            mostrarModificar(true);
-        });
+//        itemModificar.addActionListener((ActionEvent e) -> {
+//            mostrarModificar(true);
+//        });
         
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
@@ -313,9 +322,9 @@ public class Interfaz {
             mostrarNuevo(false);
         });
         
-        botonModificarCancelar.addActionListener((ActionEvent e) -> {
-            mostrarModificar(false);
-        });
+//        botonModificarCancelar.addActionListener((ActionEvent e) -> {
+//            mostrarModificar(false);
+//        });
     }
     
     public void limpiarCampos()
