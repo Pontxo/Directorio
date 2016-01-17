@@ -23,6 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 public class InterfazUpdate {
     
@@ -190,6 +191,7 @@ public class InterfazUpdate {
         iFAlta.setClosable(true);
         iFAlta.setMaximizable(true);
         iFAlta.setResizable(true);
+        iFAlta.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
         desktopPane.add(iFAlta);
         
@@ -219,6 +221,7 @@ public class InterfazUpdate {
         iFModificar.setClosable(true);
         iFModificar.setResizable(true);
         iFModificar.pack();
+        iFModificar.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
         desktopPane.add(iFModificar);
     }
