@@ -46,7 +46,7 @@ public class InterfazUpdate {
     //Termina declaracion de variables y componentes del menu principal
     
     //Inicia declaracion de variables y componentes de modulo "Alta"
-    JPanel panelAlta;
+    JPanel panelAlta, panelAltaBotones;
     JInternalFrame iFAlta;
     
     JLabel labelAltaNombre;
@@ -141,10 +141,13 @@ public class InterfazUpdate {
     {
         JPanel panelAlta = new JPanel();
         panelAlta.setLayout(new BoxLayout(panelAlta, BoxLayout.Y_AXIS));
+        panelAltaBotones = new JPanel();
+        panelAltaBotones.setLayout(new FlowLayout());
         
         iFAlta = new JInternalFrame("Agregar Contacto");
         
         labelAltaNombre = new JLabel("Nombre:");
+        //labelAltaNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldAltaNombre = new JTextField(25);
         //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
         
@@ -171,6 +174,14 @@ public class InterfazUpdate {
         fieldCodigoPostal = new JTextField(10);
         //fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         
+        botonGuardar = new JButton("Guardar");
+        botonCancelar = new JButton("Cancelar");
+        
+        panelAltaBotones.add(botonGuardar);
+        panelAltaBotones.add(botonCancelar);
+        //Alinea todos los componentes a la izquierda del panel.
+        panelAltaBotones.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         panelAlta.add(labelAltaNombre);
         panelAlta.add(fieldAltaNombre);
         panelAlta.add(labelApellidos);
@@ -185,6 +196,7 @@ public class InterfazUpdate {
         panelAlta.add(fieldColonia);
         panelAlta.add(labelCodigoPostal);
         panelAlta.add(fieldCodigoPostal);
+        panelAlta.add(panelAltaBotones);
         
         iFAlta.add(panelAlta);
         iFAlta.pack();
