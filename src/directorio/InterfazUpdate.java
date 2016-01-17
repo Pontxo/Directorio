@@ -139,7 +139,7 @@ public class InterfazUpdate {
     
     public void inicializarAlta()
     {
-        JPanel panelAlta = new JPanel();
+        panelAlta = new JPanel();
         panelAlta.setLayout(new BoxLayout(panelAlta, BoxLayout.Y_AXIS));
         panelAltaBotones = new JPanel();
         panelAltaBotones.setLayout(new FlowLayout());
@@ -253,12 +253,12 @@ public class InterfazUpdate {
         itemSalir.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
+                        
+        botonCancelar.addActionListener((ActionEvent e) -> {
+            mostrarNuevo(false);
+        });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
-            if(iFAlta.isClosed())
-            {
-                //Insertar codigo aqui
-            }
             mostrarNuevo(true);
         });
         
