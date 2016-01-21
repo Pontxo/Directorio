@@ -3,16 +3,15 @@ package directorio;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,14 +25,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
+import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 public class Interfaz {
     
     //Inicia declaracion de variables y componentes del menu principal
     JFrame frame;
-    JDesktopPane desktopPane;
-    JInternalFrame iFNuevo;
     
     JMenuBar menuBar;
     
@@ -50,14 +47,12 @@ public class Interfaz {
     JMenuItem itemAbout;
     //Termina declaracion de variables y componentes del menu principal
     
-    //Inicia declaracion de variables y componentes de modulo "Nuevo"
-    JPanel panelNuevo;
-    JPanel panelNuevoBotones;
+    //Inicia declaracion de variables y componentes de modulo "Alta"
+    JPanel panelAlta, panelAltaBotones;
+    JInternalFrame iFAlta;
     
-    TitledBorder tituloPanelNuevo;
-    
-    JLabel labelNombre;
-    JTextField fieldNombre;
+    JLabel labelAltaNombre;
+    JTextField fieldAltaNombre;
     JLabel labelApellidos;
     JTextField fieldApellidos;
     JLabel labelAvenida;
@@ -71,36 +66,30 @@ public class Interfaz {
     JLabel labelTelefono;
     JTextField fieldTelefono;
     JButton botonGuardar, botonCancelar;
-    //Termina declaracion de variables y componentes de modulo "Nuevo"
+    //Termina declaracion de variables y componentes de modulo "Alta"
     
     //Inicia declaracion de variables y componentes de modulo "Modificar"
     JPanel panelModificar;
-    JPanel panelModificarBotones;
+    JInternalFrame iFModificar;
+    
     JComboBox comboBuscar;
     JButton botonModificarGuardar;
     JButton botonModificarCancelar;
-    //Termina declaracion de variables y componentes de modulo "Nuevo"
+    //Termina declaracion de variables y componentes de modulo "Modificar"
     
-    //Inicia declaracion de variables y componentes de modulo "Baja"
-    JPanel panelBaja;
-    //Termina declaracion de variables y componentes de modulo "Baja"
-    
+    JDesktopPane desktopPane;
     Image icon;
     
     Conexion iConexion;
-
+    
     public Interfaz()
     {
         iConexion = new Conexion();
-        inicializarComponentes();
-    }
-    
-    public void inicializarComponentes()
-    {
+        
         frame = new JFrame("Directorio");
         
         desktopPane = new JDesktopPane();
-        frame.add(desktopPane);
+        frame.getContentPane().add(desktopPane);
         
         //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
@@ -115,9 +104,7 @@ public class Interfaz {
         //Linea para que el frame aparezca maximizado por defecto.
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        frame.setSize(640,480);
         frame.setMinimumSize(new Dimension (640,480));
-        frame.setLayout(new GridBagLayout());
         
         menuBar = new JMenuBar();
         
@@ -145,7 +132,7 @@ public class Interfaz {
         
         frame.setJMenuBar(menuBar);
         
-        inicializarNuevo();
+        inicializarAlta();
         inicializarModificar();
         
         frame.setVisible(true);
@@ -153,98 +140,87 @@ public class Interfaz {
         //Evento para cerrrar la ventana con el boton X de la barra superior
         frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
         
-        //Metodo donde estaran todos los eventos
         actionListeners();
     }
     
-    public void inicializarNuevo()
+    public void inicializarAlta()
     {
-        iFNuevo = new JInternalFrame("Nuevo contacto");
+        panelAlta = new JPanel();
+        panelAlta.setLayout(new BoxLayout(panelAlta, BoxLayout.Y_AXIS));
+        panelAltaBotones = new JPanel();
+        panelAltaBotones.setLayout(new FlowLayout());
         
-        panelNuevo = new JPanel();
-        panelNuevo.setLayout(new BoxLayout(panelNuevo, BoxLayout.Y_AXIS));
+        iFAlta = new JInternalFrame("Agregar Contacto");
         
-        panelNuevoBotones = new JPanel();
-        panelNuevoBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        
-        tituloPanelNuevo = BorderFactory.createTitledBorder("Alta");
-        panelNuevo.setBorder(tituloPanelNuevo);
-        
-        labelNombre = new JLabel("Nombre:");
-        labelNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
-        fieldNombre = new JTextField(15);
-        fieldNombre.setMinimumSize(new Dimension(25,250));
-        fieldNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        labelAltaNombre = new JLabel("Nombre:");
+        //labelAltaNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldAltaNombre = new JTextField(25);
+        //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
         
         labelApellidos = new JLabel("Apellidos:");
-        labelApellidos.setAlignmentX(Component.LEFT_ALIGNMENT);
-        fieldApellidos = new JTextField(15);
-        fieldApellidos.setMinimumSize(new Dimension(25,250));
-        fieldApellidos.setAlignmentX(Component.LEFT_ALIGNMENT);
+        fieldApellidos = new JTextField(25);
+        //fieldApellidos.setMinimumSize(new Dimension(25,250));
         
         labelTelefono = new JLabel("Telefono:");
-        labelTelefono.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldTelefono = new JTextField(10);
-        fieldTelefono.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelAvenida = new JLabel("Avenida:");
-        labelAvenida.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldAvenida = new JTextField(15);
-        fieldAvenida.setMinimumSize(new Dimension(25,250));
-        fieldAvenida.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //fieldAvenida.setMinimumSize(new Dimension(25,250));
         
         labelNumero = new JLabel("Numero:");
-        labelNumero.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldNumero = new JTextField(10);
-        fieldNumero.setMinimumSize(new Dimension(25,100));
-        fieldNumero.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //fieldNumero.setMinimumSize(new Dimension(25,100));
         
         labelColonia = new JLabel("Colonia: ");
-        labelColonia.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldColonia = new JTextField(15);
-        fieldColonia.setMinimumSize(new Dimension(25,250));
-        fieldColonia.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //fieldColonia.setMinimumSize(new Dimension(25,250));
         
         labelCodigoPostal = new JLabel("Codigo Postal:");
-        labelCodigoPostal.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldCodigoPostal = new JTextField(10);
-        fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
-        fieldCodigoPostal.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         
         botonGuardar = new JButton("Guardar");
         botonCancelar = new JButton("Cancelar");
         
-        panelNuevoBotones.add(botonGuardar);
-        panelNuevoBotones.add(botonCancelar);
-        panelNuevoBotones.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panelAltaBotones.add(botonGuardar);
+        panelAltaBotones.add(botonCancelar);
+        //Alinea todos los componentes a la izquierda del panel.
+        panelAltaBotones.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        panelNuevo.add(labelNombre);
-        panelNuevo.add(fieldNombre);
-        panelNuevo.add(labelApellidos);
-        panelNuevo.add(fieldApellidos);
-        panelNuevo.add(labelTelefono);
-        panelNuevo.add(fieldTelefono);
-        panelNuevo.add(labelAvenida);
-        panelNuevo.add(fieldAvenida);
-        panelNuevo.add(labelNumero);
-        panelNuevo.add(fieldNumero);
-        panelNuevo.add(labelColonia);
-        panelNuevo.add(fieldColonia);
-        panelNuevo.add(labelCodigoPostal);
-        panelNuevo.add(fieldCodigoPostal);
-        panelNuevo.add(panelNuevoBotones);
-                
-        panelNuevo.setVisible(false);
-        panelNuevoBotones.setVisible(false);
-        frame.add(panelNuevo);
+        panelAlta.add(labelAltaNombre);
+        panelAlta.add(fieldAltaNombre);
+        panelAlta.add(labelApellidos);
+        panelAlta.add(fieldApellidos);
+        panelAlta.add(labelTelefono);
+        panelAlta.add(fieldTelefono);
+        panelAlta.add(labelAvenida);
+        panelAlta.add(fieldAvenida);
+        panelAlta.add(labelNumero);
+        panelAlta.add(fieldNumero);
+        panelAlta.add(labelColonia);
+        panelAlta.add(fieldColonia);
+        panelAlta.add(labelCodigoPostal);
+        panelAlta.add(fieldCodigoPostal);
+        panelAlta.add(panelAltaBotones);
+        
+        iFAlta.add(panelAlta);
+        iFAlta.pack();
+        iFAlta.setClosable(true);
+        iFAlta.setMaximizable(true);
+        iFAlta.setResizable(true);
+        iFAlta.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        desktopPane.add(iFAlta);
+        
     }
     
     public void inicializarModificar()
     {
         panelModificar = new JPanel();
-        panelModificar.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
-        panelModificarBotones = new JPanel();
-        panelModificarBotones.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        panelModificar.setLayout(new FlowLayout());
+        
+        iFModificar = new JInternalFrame("Modificar Contacto");
         
         comboBuscar = new JComboBox();
         comboBuscar.addItem("Buscar por...");
@@ -255,30 +231,27 @@ public class Interfaz {
         botonModificarGuardar = new JButton("Guardar");
         botonModificarCancelar = new JButton("Cancelar");
         
-        panelModificarBotones.add(botonModificarGuardar);
-        panelModificarBotones.add(botonModificarCancelar);
-        
         panelModificar.add(comboBuscar);
-        panelModificar.add(panelModificarBotones);
+        panelModificar.add(botonModificarGuardar);
+        panelModificar.add(botonModificarCancelar);
         
-        panelModificar.setVisible(false);
-        frame.add(panelModificar);
-    }
-    
-    public void mostrarNuevo(boolean mostrar)
-    {
-        panelNuevo.setVisible(mostrar);
-        panelNuevoBotones.setVisible(mostrar);
-    }
-    
-    public void mostrarModificar(boolean mostrar)
-    {
-        panelModificar.setVisible(mostrar);
-    }
-    
-    public void mostrarBaja(boolean mostrar)
-    {
+        iFModificar.add(panelModificar);
+        iFModificar.setClosable(true);
+        iFModificar.setResizable(true);
+        iFModificar.pack();
+        iFModificar.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
+        desktopPane.add(iFModificar);
+    }
+    
+    public void mostrarNuevo(boolean mostrar) {
+        
+        iFAlta.setVisible(mostrar);
+    }
+    
+    public void mostrarModificar(boolean mostrar) {
+        
+        iFModificar.setVisible(mostrar);
     }
     
     public void actionListeners()
@@ -287,18 +260,9 @@ public class Interfaz {
             System.exit(0);
         });
         
-        itemNuevo.addActionListener((ActionEvent e) -> {
-            mostrarModificar(false);
-            mostrarNuevo(true);
-        });
-        
-        itemModificar.addActionListener((ActionEvent e) -> {
-            mostrarModificar(true);
-        });
-        
         botonGuardar.addActionListener((ActionEvent e) -> {
             try {
-                if(iConexion.crearRegistro(fieldNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
+                if(iConexion.crearRegistro(fieldAltaNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
                         fieldAvenida.getText(), fieldNumero.getText(), fieldColonia.getText(), fieldCodigoPostal.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Usuario guardado con exito", "Usuario guardado", 1);
@@ -308,19 +272,23 @@ public class Interfaz {
                 Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+                        
         botonCancelar.addActionListener((ActionEvent e) -> {
             mostrarNuevo(false);
         });
         
-        botonModificarCancelar.addActionListener((ActionEvent e) -> {
-            mostrarModificar(false);
+        itemNuevo.addActionListener((ActionEvent e) -> {
+            mostrarNuevo(true);
+        });
+        
+        itemModificar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(true);
         });
     }
     
     public void limpiarCampos()
     {
-        fieldNombre.setText("");
+        fieldAltaNombre.setText("");
         fieldApellidos.setText("");
         fieldTelefono.setText("");
         fieldAvenida.setText("");
@@ -333,5 +301,4 @@ public class Interfaz {
     {
         System.out.println(text);
     }
-    
 }

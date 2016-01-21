@@ -7,12 +7,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Directorio {
         
     Interfaz iInterfaz;
-    InterfazUpdate iInterfazUpdate;
    
     public Directorio() throws ClassNotFoundException, SQLException
     {        
-        //iInterfaz = new Interfaz();
-        iInterfazUpdate = new InterfazUpdate();
+        //iInterfaz = new Interfaz_Deprecated();
+        iInterfaz = new Interfaz();
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
