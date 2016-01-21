@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,10 +68,13 @@ public class Interfaz {
     //Termina declaracion de variables y componentes de modulo "Alta"
     
     //Inicia declaracion de variables y componentes de modulo "Modificar"
-    JPanel panelModificar;
+    JPanel panelModificar, panelModificarBotones, panelModificarBuscar;
     JInternalFrame iFModificar;
     
     JComboBox<String> comboBuscar;
+    
+    JLabel labelModificarBuscar;
+    JTextField fieldModificarBuscar;
     JButton botonModificarGuardar;
     JButton botonModificarCancelar;
     //Termina declaracion de variables y componentes de modulo "Modificar"
@@ -218,7 +220,13 @@ public class Interfaz {
     private void inicializarModificar()
     {
         panelModificar = new JPanel();
-        panelModificar.setLayout(new FlowLayout());
+        panelModificar.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
+        
+        panelModificarBotones = new JPanel();
+        panelModificarBotones.setLayout(new FlowLayout());
+        
+        panelModificarBuscar = new JPanel();
+        panelModificarBuscar.setLayout(new FlowLayout());
         
         iFModificar = new JInternalFrame("Modificar Contacto");
         
@@ -227,13 +235,25 @@ public class Interfaz {
         comboBuscar.addItem("Nombre");
         comboBuscar.addItem("Apellido");
         comboBuscar.addItem("Telefono");
+        comboBuscar.addItem("Colonia");
+        comboBuscar.addItem("Codigo Postal");
+        
+        labelModificarBuscar = new JLabel("Buscar:");
+        fieldModificarBuscar = new JTextField(20);
+        
+        panelModificarBuscar.add(comboBuscar);
+        panelModificarBuscar.add(labelModificarBuscar);
+        panelModificarBuscar.add(fieldModificarBuscar);
         
         botonModificarGuardar = new JButton("Guardar");
         botonModificarCancelar = new JButton("Cancelar");
         
-        panelModificar.add(comboBuscar);
-        panelModificar.add(botonModificarGuardar);
-        panelModificar.add(botonModificarCancelar);
+        panelModificar.add(panelModificarBuscar);
+        
+        panelModificarBotones.add(botonModificarGuardar);
+        panelModificarBotones.add(botonModificarCancelar);
+        
+        panelModificar.add(panelModificarBotones);
         
         iFModificar.add(panelModificar);
         iFModificar.setClosable(true);
@@ -276,6 +296,10 @@ public class Interfaz {
                         
         botonAltaCancelar.addActionListener((ActionEvent e) -> {
             mostrarNuevo(false);
+        });
+        
+        botonModificarCancelar.addActionListener((ActionEvent e) -> {
+            mostrarModificar(false);
         });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
