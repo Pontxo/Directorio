@@ -111,9 +111,9 @@ public class Interfaz {
         }
         
         try{
-            img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/background.png"));
+            img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/phone.png"));
             background = new JLabel(new ImageIcon(img));
-            frame.getContentPane().add(background);
+            //frame.getContentPane().add(background); // CON IMAGEN DE FONDO NO MUESTRA OTROS COMPONENTES
         }
         catch(Exception e)
         {
