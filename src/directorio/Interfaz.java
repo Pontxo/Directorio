@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
@@ -82,7 +83,13 @@ public class Interfaz {
     JDesktopPane desktopPane;
     Image icon;
     
+    Image img;
+    JLabel background;
+    
     Conexion iConexion;
+    
+    final int _ALTA = 0;
+    final int _MODIFICAR = 1;    
     
     public Interfaz()
     {
@@ -100,7 +107,17 @@ public class Interfaz {
         }
         catch(Exception e)
         {
-            System.out.println("Error al cargar el ícono");
+            DBG("Error al cargar el ícono");
+        }
+        
+        try{
+            img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("res/background.png"));
+            background = new JLabel(new ImageIcon(img));
+            frame.getContentPane().add(background);
+        }
+        catch(Exception e)
+        {
+            DBG("Error al cargar la imagen de fondo");
         }
         
         //Linea para que el frame aparezca maximizado por defecto.
@@ -287,7 +304,7 @@ public class Interfaz {
                         fieldAltaColonia.getText(), fieldAltaCodigoPostal.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Usuario guardado con exito", "Usuario guardado", 1);
-                    limpiarCampos();
+                    limpiarCampos(_ALTA);
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
@@ -296,6 +313,10 @@ public class Interfaz {
                         
         botonAltaCancelar.addActionListener((ActionEvent e) -> {
             mostrarNuevo(false);
+        });
+        
+        botonModificarGuardar.addActionListener((ActionEvent e) ->{
+            limpiarCampos(_MODIFICAR);
         });
         
         botonModificarCancelar.addActionListener((ActionEvent e) -> {
@@ -311,15 +332,28 @@ public class Interfaz {
         });
     }
     
-    public void limpiarCampos()
+    public void limpiarCampos(int modulo)
     {
-        fieldAltaNombre.setText("");
-        fieldAltaApellidos.setText("");
-        fieldAltaTelefono.setText("");
-        fieldAltaAvenida.setText("");
-        fieldAltaNumero.setText("");
-        fieldAltaColonia.setText("");
-        fieldAltaCodigoPostal.setText("");
+        switch(modulo)
+        {
+            case _ALTA:
+            {
+                fieldAltaNombre.setText("");
+                fieldAltaApellidos.setText("");
+                fieldAltaTelefono.setText("");
+                fieldAltaAvenida.setText("");
+                fieldAltaNumero.setText("");
+                fieldAltaColonia.setText("");
+                fieldAltaCodigoPostal.setText("");
+            } break;
+            
+            case _MODIFICAR:
+            {
+                comboBuscar.setSelectedIndex(0);
+                fieldModificarBuscar.setText("");
+            } break;
+            
+        }
     }
     
     public void DBG(String text)
