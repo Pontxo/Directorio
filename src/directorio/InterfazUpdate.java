@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
@@ -78,8 +80,12 @@ public class InterfazUpdate {
     JDesktopPane desktopPane;
     Image icon;
     
+    Conexion iConexion;
+    
     public InterfazUpdate()
     {
+        iConexion = new Conexion();
+        
         frame = new JFrame("Directorio");
         
         desktopPane = new JDesktopPane();
@@ -253,6 +259,19 @@ public class InterfazUpdate {
         itemSalir.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
+        
+        botonGuardar.addActionListener((ActionEvent e) -> {
+            try {
+                if(iConexion.crearRegistro(fieldAltaNombre.getText(), fieldApellidos.getText(), fieldTelefono.getText(),
+                        fieldAvenida.getText(), fieldNumero.getText(), fieldColonia.getText(), fieldCodigoPostal.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Usuario guardado con exito", "Usuario guardado", 1);
+                    limpiarCampos();
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
                         
         botonCancelar.addActionListener((ActionEvent e) -> {
             mostrarNuevo(false);
@@ -265,6 +284,17 @@ public class InterfazUpdate {
         itemModificar.addActionListener((ActionEvent e) -> {
             mostrarModificar(true);
         });
+    }
+    
+    public void limpiarCampos()
+    {
+        fieldAltaNombre.setText("");
+        fieldApellidos.setText("");
+        fieldTelefono.setText("");
+        fieldAvenida.setText("");
+        fieldNumero.setText("");
+        fieldColonia.setText("");
+        fieldCodigoPostal.setText("");
     }
     
     public void DBG(String text)
