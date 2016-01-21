@@ -67,10 +67,8 @@ public class Conexion {
     
     public boolean validarRegistroNuevo(String nombre, String apellidos, String telefono, String avenida, String numero, String colonia, String codigoPostal)
     {        
-        if(nombre == "" || apellidos == "" || telefono == "" || avenida == "" 
-                || numero == "" || colonia == "" || codigoPostal == "")
-            return false;
-        return true;
+        return !(nombre.equals("") || apellidos.equals("") || telefono.equals("") || avenida.equals("") 
+                || numero.equals("") || colonia.equals("") || codigoPostal.equals(""));
     }
     
     public void DBG(String text)
