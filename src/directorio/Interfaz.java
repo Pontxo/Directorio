@@ -174,29 +174,36 @@ public class Interfaz {
         labelAltaNombre = new JLabel("Nombre:");
         //labelAltaNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldAltaNombre = new JTextField(25);
+        fieldAltaNombre.setToolTipText("Agregar nombre");
         //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
         
         labelAltaApellidos = new JLabel("Apellidos:");
         fieldAltaApellidos = new JTextField(25);
+        fieldAltaApellidos.setToolTipText("Agregar apellidos");
         //fieldApellidos.setMinimumSize(new Dimension(25,250));
         
         labelAltaTelefono = new JLabel("Telefono:");
         fieldAltaTelefono = new JTextField(10);
+        fieldAltaTelefono.setToolTipText("Agregar numero telefonico");
         
         labelAltaAvenida = new JLabel("Avenida:");
         fieldAltaAvenida = new JTextField(15);
+        fieldAltaAvenida.setToolTipText("Agregar avenida");
         //fieldAvenida.setMinimumSize(new Dimension(25,250));
         
         labelAltaNumero = new JLabel("Numero:");
         fieldAltaNumero = new JTextField(10);
+        fieldAltaNumero.setToolTipText("Agregar numero");
         //fieldNumero.setMinimumSize(new Dimension(25,100));
         
         labelAltaColonia = new JLabel("Colonia: ");
         fieldAltaColonia = new JTextField(15);
+        fieldAltaColonia.setToolTipText("Agregar colonia");
         //fieldColonia.setMinimumSize(new Dimension(25,250));
         
         labelAltaCodigoPostal = new JLabel("Codigo Postal:");
         fieldAltaCodigoPostal = new JTextField(10);
+        fieldAltaCodigoPostal.setToolTipText("Agregar codigo postal");
         //fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         
         botonAltaGuardar = new JButton("Guardar");
