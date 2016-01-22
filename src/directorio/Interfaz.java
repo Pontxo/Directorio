@@ -258,9 +258,9 @@ public class Interfaz {
         labelModificarBuscar = new JLabel("Buscar:");
         fieldModificarBuscar = new JTextField(20);
         
-        panelModificarBuscar.add(comboBuscar);
         panelModificarBuscar.add(labelModificarBuscar);
         panelModificarBuscar.add(fieldModificarBuscar);
+        panelModificarBuscar.add(comboBuscar);
         
         botonModificarGuardar = new JButton("Guardar");
         botonModificarCancelar = new JButton("Cancelar");
@@ -317,6 +317,14 @@ public class Interfaz {
         
         botonModificarGuardar.addActionListener((ActionEvent e) ->{
             limpiarCampos(_MODIFICAR);
+            try {
+                if(iConexion.buscarRegistros("NOMBRE"))
+                {
+                    DBG("Se encontraron resultados en la busqueda");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
         botonModificarCancelar.addActionListener((ActionEvent e) -> {

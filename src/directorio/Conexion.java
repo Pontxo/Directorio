@@ -2,15 +2,21 @@ package directorio;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Conexion {
     
+    ResultSetMetaData metaDatos;
+    
     public Conexion()
     {
-
+        
     }
     
     public Connection createDatabaseConnection() throws ClassNotFoundException, SQLException
@@ -69,6 +75,23 @@ public class Conexion {
     {        
         return !(nombre.equals("") || apellidos.equals("") || telefono.equals("") || avenida.equals("") 
                 || numero.equals("") || colonia.equals("") || codigoPostal.equals(""));
+    }
+    
+    public boolean buscarRegistros(String dato) throws SQLException
+    {
+        Statement st;
+        try {
+            st = createDatabaseConnection().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM USUARIOS");
+            
+            return true;
+            
+        } catch (ClassNotFoundException ex) {
+            DBG("Se ha fallado en la busqueda en la base de datos");
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
     
     public void DBG(String text)
