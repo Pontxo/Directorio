@@ -254,7 +254,7 @@ public class Interfaz {
         
         iFModificar = new JInternalFrame("Modificar Contacto");
         
-        comboBuscar = new JComboBox<String>();
+        comboBuscar = new JComboBox<>();
         comboBuscar.addItem("Buscar por...");
         comboBuscar.addItem("Nombre");
         comboBuscar.addItem("Apellido");
@@ -345,6 +345,55 @@ public class Interfaz {
         itemModificar.addActionListener((ActionEvent e) -> {
             mostrarModificar(true);
         });
+        
+        fieldAltaNombre.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaNombre.getText().equals(""))
+           {
+               fieldAltaNombre.transferFocus();
+           }
+        });
+        
+        fieldAltaApellidos.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaNombre.getText().equals(""))
+           {
+               fieldAltaApellidos.transferFocus();
+           }
+        });
+        
+        fieldAltaTelefono.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaTelefono.getText().equals(""))
+           {
+               fieldAltaTelefono.transferFocus();
+           }
+        });
+        
+        fieldAltaAvenida.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaAvenida.getText().equals(""))
+           {
+               fieldAltaAvenida.transferFocus();
+           }
+        });
+        
+        fieldAltaNumero.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaNumero.getText().equals(""))
+           {
+               fieldAltaNumero.transferFocus();
+           }
+        });
+        
+        fieldAltaColonia.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaColonia.getText().equals(""))
+           {
+               fieldAltaColonia.transferFocus();
+           }
+        });
+        
+        fieldAltaCodigoPostal.addActionListener((ActionEvent e) -> {
+           if(!fieldAltaCodigoPostal.getText().equals(""))
+           {
+               fieldAltaCodigoPostal.transferFocus();
+           }
+        });
     }
     
     public void limpiarCampos(int modulo)
@@ -371,7 +420,7 @@ public class Interfaz {
         }
     }
     
-    public void DBG(String text)
+    private void DBG(String text)
     {
         System.out.println(text);
     }
