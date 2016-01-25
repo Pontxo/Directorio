@@ -24,8 +24,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
 
 public class Interfaz {
     
@@ -78,6 +80,9 @@ public class Interfaz {
     JTextField fieldModificarBuscar;
     JButton botonModificarGuardar;
     JButton botonModificarCancelar;
+    
+    DefaultTableModel modelo;
+    JTable tabla;
     //Termina declaracion de variables y componentes de modulo "Modificar"
     
     JDesktopPane desktopPane;
@@ -274,6 +279,9 @@ public class Interfaz {
         
         panelModificar.add(panelModificarBuscar);
         
+        modelo = new DefaultTableModel();
+        tabla = new JTable(modelo);
+        
         panelModificarBotones.add(botonModificarGuardar);
         panelModificarBotones.add(botonModificarCancelar);
         
@@ -324,14 +332,16 @@ public class Interfaz {
         
         botonModificarGuardar.addActionListener((ActionEvent e) ->{
             limpiarCampos(_MODIFICAR);
-            try {
-                if(iConexion.buscarRegistros("NOMBRE"))
-                {
-                    DBG("Se encontraron resultados en la busqueda");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                if(iConexion.buscarRegistros("NOMBRE"))
+//                {
+//                    DBG("Se encontraron resultados en la busqueda");
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            
+            iConexion.consultar("NOMBRE", "Alfonso");
         });
         
         botonModificarCancelar.addActionListener((ActionEvent e) -> {

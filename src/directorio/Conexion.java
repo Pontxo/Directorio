@@ -9,14 +9,19 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Conexion {
     
     ResultSetMetaData metaDatos;
+    DefaultTableModel modelo;
+    JTable tabla;
     
     public Conexion()
     {
-        
+        modelo = new DefaultTableModel();
+        tabla = new JTable(modelo);
     }
     
     public Connection createDatabaseConnection() throws ClassNotFoundException, SQLException
@@ -92,6 +97,22 @@ public class Conexion {
         }
         
         return false;
+    }
+    
+    public ResultSet consultar(String columna, String dato)
+    {
+        ResultSet resultado = null;
+        String sql = "SELECT 'columna' FROM USUARIOS WHERE 'columna' LIKE 'dato'";
+        try{
+            Statement st = createDatabaseConnection().createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            resultado = st.executeQuery(sql);
+            DBG("Se encontro resultado en metodo consultar()");
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Error en consulta de base de datos");
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return resultado;
     }
     
     public void DBG(String text)
