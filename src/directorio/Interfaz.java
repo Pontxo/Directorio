@@ -83,6 +83,9 @@ public class Interfaz {
     
     DefaultTableModel modelo;
     JTable tabla;
+    
+    String columna;
+    String dato;
     //Termina declaracion de variables y componentes de modulo "Modificar"
     
     JDesktopPane desktopPane;
@@ -294,6 +297,9 @@ public class Interfaz {
         iFModificar.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
         desktopPane.add(iFModificar);
+        
+        columna = "";
+        dato = "";
     }
     
     public void mostrarNuevo(boolean mostrar) {
@@ -331,7 +337,6 @@ public class Interfaz {
         });
         
         botonModificarGuardar.addActionListener((ActionEvent e) ->{
-            limpiarCampos(_MODIFICAR);
 //            try {
 //                if(iConexion.buscarRegistros("NOMBRE"))
 //                {
@@ -340,8 +345,15 @@ public class Interfaz {
 //            } catch (SQLException ex) {
 //                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
 //            }
-            
-            iConexion.consultar("NOMBRE", "Alfonso");
+            columna = comboBuscar.getSelectedItem().toString();
+            dato = fieldModificarBuscar.getText();
+            if(!columna.equals("") && !dato.equals("") && !dato.equalsIgnoreCase("buscar por...")) {
+                iConexion.consultar(columna, dato);
+            } 
+            else {
+                JOptionPane.showMessageDialog(null, "Falta llenar alguno de los campos", "Datos incompletos", 1);
+            }
+            limpiarCampos(_MODIFICAR);
         });
         
         botonModificarCancelar.addActionListener((ActionEvent e) -> {
@@ -425,6 +437,8 @@ public class Interfaz {
             {
                 comboBuscar.setSelectedIndex(0);
                 fieldModificarBuscar.setText("");
+                dato = "";
+                columna = "";
             } break;
             
         }
