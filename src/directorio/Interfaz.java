@@ -99,8 +99,16 @@ public class Interfaz {
     final int _ALTA = 0;
     final int _MODIFICAR = 1;    
     
+    //Variables para determinar la resolucion de la pantalla
+    Dimension screenSize;
+    double width, height;
+    
     public Interfaz()
     {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        width = screenSize.getWidth();
+        height = screenSize.getHeight();
+        
         iConexion = new Conexion();
         
         frame = new JFrame("Directorio");
@@ -183,35 +191,41 @@ public class Interfaz {
         //labelAltaNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldAltaNombre = new JTextField(25);
         fieldAltaNombre.setToolTipText("Agregar nombre");
-        fieldAltaNombre.setMaximumSize(new Dimension(250,25));
+        fieldAltaNombre.setMaximumSize(new Dimension((int) width,25));
         //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
         
         labelAltaApellidos = new JLabel("Apellidos:");
         fieldAltaApellidos = new JTextField(25);
         fieldAltaApellidos.setToolTipText("Agregar apellidos");
+        fieldAltaApellidos.setMaximumSize(new Dimension((int) width,25));
         //fieldApellidos.setMinimumSize(new Dimension(25,250));
         
         labelAltaTelefono = new JLabel("Telefono:");
         fieldAltaTelefono = new JTextField(10);
+        fieldAltaTelefono.setMaximumSize(new Dimension((int) width,25));
         fieldAltaTelefono.setToolTipText("Agregar numero telefonico");
         
         labelAltaAvenida = new JLabel("Avenida:");
         fieldAltaAvenida = new JTextField(15);
+        fieldAltaAvenida.setMaximumSize(new Dimension((int) width,25));
         fieldAltaAvenida.setToolTipText("Agregar avenida");
         //fieldAvenida.setMinimumSize(new Dimension(25,250));
         
         labelAltaNumero = new JLabel("Numero:");
         fieldAltaNumero = new JTextField(10);
+        fieldAltaNumero.setMaximumSize(new Dimension((int) width,25));
         fieldAltaNumero.setToolTipText("Agregar numero");
         //fieldNumero.setMinimumSize(new Dimension(25,100));
         
         labelAltaColonia = new JLabel("Colonia: ");
         fieldAltaColonia = new JTextField(15);
+        fieldAltaColonia.setMaximumSize(new Dimension((int) width,25));
         fieldAltaColonia.setToolTipText("Agregar colonia");
         //fieldColonia.setMinimumSize(new Dimension(25,250));
         
         labelAltaCodigoPostal = new JLabel("Codigo Postal:");
         fieldAltaCodigoPostal = new JTextField(10);
+        fieldAltaCodigoPostal.setMaximumSize(new Dimension((int) width,25));
         fieldAltaCodigoPostal.setToolTipText("Agregar codigo postal");
         //fieldCodigoPostal.setMinimumSize(new Dimension(25,250));
         
