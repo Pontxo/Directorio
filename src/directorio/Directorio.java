@@ -33,14 +33,17 @@ public class Directorio {
         // handle exception
         
         try {
-            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                break;
+                for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-        }
-        } catch (Exception e) {
+        } 
+        catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
+                System.out.println("Error cargando Look and Feel");
+                System.out.println(""+e);
         }
         
         new Directorio();

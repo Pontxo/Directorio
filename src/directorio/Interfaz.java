@@ -183,6 +183,7 @@ public class Interfaz {
         //labelAltaNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
         fieldAltaNombre = new JTextField(25);
         fieldAltaNombre.setToolTipText("Agregar nombre");
+        fieldAltaNombre.setMaximumSize(new Dimension(250,25));
         //fieldAltaNombre.setMinimumSize(new Dimension(25,250));
         
         labelAltaApellidos = new JLabel("Apellidos:");
@@ -304,10 +305,26 @@ public class Interfaz {
     
     public void mostrarNuevo(boolean mostrar) {
         
+        if(mostrar)
+        {
+            int posX = (desktopPane.getWidth()/2) - (iFAlta.getWidth()/2);
+            int posY = (desktopPane.getHeight()/2) - (iFAlta.getHeight()/2);
+            
+            iFAlta.setLocation(posX, posY);
+        }
+        
         iFAlta.setVisible(mostrar);
     }
     
     public void mostrarModificar(boolean mostrar) {
+        
+        if(mostrar)
+        {
+            int posX = (desktopPane.getWidth()/2) - (iFModificar.getWidth()/2);
+            int posY = (desktopPane.getHeight()/2) - (iFModificar.getHeight()/2);
+        
+            iFModificar.setLocation(posX, posY);
+        }
         
         iFModificar.setVisible(mostrar);
     }
