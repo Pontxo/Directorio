@@ -115,6 +115,35 @@ public class Conexion {
         return resultado;
     }
     
+    private void mostrarConsulta()
+    {
+        JTable tabla_prueba = new JTable();
+        DefaultTableModel modelo_prueba;
+        
+        //Se obtiene la conexion a la base de datos
+        Statement st = createDatabaseConnection().createStatement();
+        
+        //Se realiza la consulta y se obtiene un result set
+        ResultSet rs = st.executeQuery("SELECT * FROM USUARIOS");
+        
+        //Se obtiene informacion sobre el numero de columnas y el nombre de los campos
+        ResultSetMetaData metaDatos = rs.getMetaData();
+        
+        //Se obtiene el numero de columnas
+        int numeroColumnas = metaDatos.getColumnCount();
+        
+        //Se crea un array de etiquetas para rellenar
+        Object[] etiquetas = new Object[numeroColumnas];
+        
+        //Se obtiene cada una de las etiquetas para cada columna
+        for(int i = 0; i < numeroColumnas; i++)
+        {
+            //Para ResultSetMetadata la primera columna es 1 en vez de 0
+            etiquetas[i] = metaDatos.getColumnLabel(i + 1);
+        }
+    }
+    
+    
     public void DBG(String text)
     {
         System.out.println(text);
