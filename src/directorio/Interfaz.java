@@ -43,6 +43,7 @@ public class Interfaz {
     JMenuItem itemNuevo;
     JMenuItem itemModificar;
     JMenuItem itemBorrar;
+    JMenuItem itemMostrarRegistros;
     
     JMenu menuAyuda;
     JMenuItem itemAyuda;
@@ -87,6 +88,12 @@ public class Interfaz {
     String columna;
     String dato;
     //Termina declaracion de variables y componentes de modulo "Modificar"
+    
+    //Inicia declaracion de variables y componentes de modulo "Mostrar Registros"
+    JPanel panelMostrarRegistros;
+    JInternalFrame iFMostrarRegistros;
+    
+    //Termina declaracion de variables y componentes de modulo "Mostrar Registros"
     
     JDesktopPane desktopPane;
     Image icon;
@@ -151,9 +158,11 @@ public class Interfaz {
         itemNuevo = new JMenuItem("Nuevo");
         itemModificar = new JMenuItem("Modificar");
         itemBorrar = new JMenuItem("Borrar");
+        itemMostrarRegistros = new JMenuItem("Mostrar Registros");
         menuAccion.add(itemNuevo);
         menuAccion.add(itemModificar);
         menuAccion.add(itemBorrar);
+        menuAccion.add(itemMostrarRegistros);
         
         menuAyuda = new JMenu("Ayuda");
         itemAyuda = new JMenuItem("Ayuda");
@@ -169,6 +178,8 @@ public class Interfaz {
         
         inicializarAlta();
         inicializarModificar();
+        inicializarMostrarRegistros();
+        
         
         frame.setVisible(true);
         
@@ -317,6 +328,30 @@ public class Interfaz {
         dato = "";
     }
     
+    public void inicializarMostrarRegistros()
+    {
+        panelMostrarRegistros = new JPanel();
+        panelMostrarRegistros.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
+        
+        iFMostrarRegistros = new JInternalFrame("Mostrar Registros");
+        //iFMostrarRegistros.setSize(new Dimension(1000,1000));
+        
+        try {
+            iFMostrarRegistros.add(iConexion.mostrarConsulta());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        iFMostrarRegistros.setClosable(true);
+        iFMostrarRegistros.setResizable(true);
+        iFMostrarRegistros.pack();
+        iFMostrarRegistros.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        
+        desktopPane.add(iFMostrarRegistros);
+    }
+    
     public void mostrarNuevo(boolean mostrar) {
         
         if(mostrar)
@@ -341,6 +376,19 @@ public class Interfaz {
         }
         
         iFModificar.setVisible(mostrar);
+    }
+    
+    public void mostrarMostrarRegistros(boolean mostrar)
+    {
+        if(mostrar)
+        {
+            int posX = (desktopPane.getWidth()/2) - (iFModificar.getWidth()/2);
+            int posY = (desktopPane.getHeight()/2) - (iFModificar.getHeight()/2);
+        
+            iFMostrarRegistros.setLocation(posX, posY);
+        }
+        
+        iFMostrarRegistros.setVisible(mostrar);
     }
     
     private void actionListeners()
@@ -397,6 +445,10 @@ public class Interfaz {
         
         itemModificar.addActionListener((ActionEvent e) -> {
             mostrarModificar(true);
+        });
+        
+        itemMostrarRegistros.addActionListener((ActionEvent e) -> {
+            mostrarMostrarRegistros(true);
         });
         
         fieldAltaNombre.addActionListener((ActionEvent e) -> {

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +18,12 @@ public class Conexion {
     ResultSetMetaData metaDatos;
     DefaultTableModel modelo;
     JTable tabla;
+    
+    //Variables provisionales para pruebas
+    DefaultTableModel modelo_prueba;
+    JTable tabla_prueba;
+    JScrollPane scroll_prueba;
+    //Terminan variables provisionales para pruebas
     
     public Conexion()
     {
@@ -115,10 +122,13 @@ public class Conexion {
         return resultado;
     }
     
-    private void mostrarConsulta()
+    //Metodo para mostrar todos los registros de la base de datos
+    public JScrollPane mostrarConsulta() throws ClassNotFoundException, SQLException
     {
-        JTable tabla_prueba = new JTable();
-        DefaultTableModel modelo_prueba;
+        modelo_prueba = new DefaultTableModel();
+        tabla_prueba = new JTable(modelo_prueba);
+        scroll_prueba = new JScrollPane();
+        scroll_prueba.setViewportView(tabla_prueba);
         
         //Se obtiene la conexion a la base de datos
         Statement st = createDatabaseConnection().createStatement();
@@ -141,6 +151,24 @@ public class Conexion {
             //Para ResultSetMetadata la primera columna es 1 en vez de 0
             etiquetas[i] = metaDatos.getColumnLabel(i + 1);
         }
+        
+        modelo_prueba.setColumnIdentifiers(etiquetas);
+        
+        while(rs.next())
+        {
+            // Se crea un array que será una de las filas de la tabla.
+            Object[] fila = new Object[numeroColumnas];
+            
+            // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+            for(int i = 0; i < numeroColumnas; i++)
+            {
+                fila[i] = rs.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+            }
+            
+            modelo_prueba.addRow(fila);
+        }
+        
+        return scroll_prueba;
     }
     
     
