@@ -24,10 +24,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
-import javax.swing.table.DefaultTableModel;
 
 public class Interfaz {
     
@@ -81,9 +79,6 @@ public class Interfaz {
     JTextField fieldModificarBuscar;
     JButton botonModificarGuardar;
     JButton botonModificarCancelar;
-    
-    DefaultTableModel modelo;
-    JTable tabla;
     
     String columna;
     String dato;
@@ -307,18 +302,23 @@ public class Interfaz {
         botonModificarCancelar = new JButton("Cancelar");
         
         panelModificar.add(panelModificarBuscar);
-        
-        modelo = new DefaultTableModel();
-        tabla = new JTable(modelo);
-        
+               
         panelModificarBotones.add(botonModificarGuardar);
         panelModificarBotones.add(botonModificarCancelar);
+        
+        try {
+            panelModificar.add(iConexion.mostrarConsulta());
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
         
         panelModificar.add(panelModificarBotones);
         
         iFModificar.add(panelModificar);
         iFModificar.setClosable(true);
         iFModificar.setResizable(true);
+        iFModificar.setMaximizable(true);
         iFModificar.pack();
         iFModificar.setDefaultCloseOperation(HIDE_ON_CLOSE);
         
@@ -338,9 +338,7 @@ public class Interfaz {
         
         try {
             iFMostrarRegistros.add(iConexion.mostrarConsulta());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
         
