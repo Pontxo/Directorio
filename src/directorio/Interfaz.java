@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,6 +26,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
 public class Interfaz {
@@ -46,6 +48,9 @@ public class Interfaz {
     JMenu menuAyuda;
     JMenuItem itemAyuda;
     JMenuItem itemAbout;
+    
+    JToolBar toolBar;
+    JButton botonNuevo, botonModificar, botonBorrar, botonSalir;
     //Termina declaracion de variables y componentes del menu principal
     
     //Inicia declaracion de variables y componentes de modulo "Alta"
@@ -143,6 +148,8 @@ public class Interfaz {
         
         frame.setMinimumSize(new Dimension (640,480));
         
+        inicializarToolBar();
+        
         menuBar = new JMenuBar();
         
         menuArchivo = new JMenu("Archivo");
@@ -182,6 +189,36 @@ public class Interfaz {
         frame.addWindowListener(new WindowAdapter() {public void windowClosing(WindowEvent e) {System.exit(0);}});
         
         actionListeners();
+    }
+    
+    private void inicializarToolBar()
+    {
+        toolBar = new JToolBar();
+ 
+        ImageIcon icono;
+        
+        icono = new ImageIcon(getClass().getResource("res/agregar.png"));
+        botonNuevo = new JButton(icono);
+        botonNuevo.setToolTipText("Agregar contacto");
+        
+        icono = new ImageIcon(getClass().getResource("res/editar.png"));
+        botonModificar = new JButton(icono);
+        botonModificar.setToolTipText("Modificar contacto");
+        
+        icono = new ImageIcon(getClass().getResource("res/eliminar.png"));
+        botonBorrar = new JButton(icono);
+        botonBorrar.setToolTipText("Eliminar contacto");
+        
+        icono = new ImageIcon(getClass().getResource("res/salir.png"));
+        botonSalir = new JButton(icono);
+        botonSalir.setToolTipText("Salir");
+        
+        toolBar.add(botonNuevo);
+        toolBar.add(botonModificar);
+        toolBar.add(botonBorrar);
+        toolBar.add(botonSalir);
+        
+        frame.getContentPane().add(toolBar);
     }
     
     private void inicializarAlta()
