@@ -1,5 +1,6 @@
 package directorio;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +13,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -119,9 +119,10 @@ public class Interfaz {
         iConexion = new Conexion();
         
         frame = new JFrame("Directorio");
+        frame.setLayout(new BorderLayout());
         
         desktopPane = new JDesktopPane();
-        frame.getContentPane().add(desktopPane);
+        frame.getContentPane().add(desktopPane, BorderLayout.CENTER);
         
         //Codigo para cambiar el icono en la parte superior izquierda del frame.
         try{
@@ -218,7 +219,7 @@ public class Interfaz {
         toolBar.add(botonBorrar);
         toolBar.add(botonSalir);
         
-        frame.getContentPane().add(toolBar);
+        frame.getContentPane().add(toolBar, BorderLayout.NORTH);
     }
     
     private void inicializarAlta()
