@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import static javax.swing.WindowConstants.HIDE_ON_CLOSE;
 
-public class Interfaz {
+public class Interfaz implements Configuracion {
     
     //Inicia declaracion de variables y componentes del menu principal
     JFrame frame;
@@ -194,6 +194,9 @@ public class Interfaz {
     
     private void inicializarToolBar()
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método inicializarToolBar() en Interfaz.java");
+        
         toolBar = new JToolBar();
  
         ImageIcon icono;
@@ -224,6 +227,9 @@ public class Interfaz {
     
     private void inicializarAlta()
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método inicializarAlta() en Interfaz.java");
+        
         panelAlta = new JPanel();
         panelAlta.setLayout(new BoxLayout(panelAlta, BoxLayout.Y_AXIS));
         panelAltaBotones = new JPanel();
@@ -310,6 +316,9 @@ public class Interfaz {
     
     private void inicializarModificar()
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método inicializarModificar() en Interfaz.java");
+        
         panelModificar = new JPanel();
         panelModificar.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
         
@@ -368,6 +377,9 @@ public class Interfaz {
     
     public void inicializarMostrarRegistros()
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método inicializarMostrarRegistros() en Interfaz.java");
+        
         panelMostrarRegistros = new JPanel();
         panelMostrarRegistros.setLayout(new BoxLayout(panelModificar, BoxLayout.Y_AXIS));
         
@@ -390,6 +402,9 @@ public class Interfaz {
     
     public void mostrarNuevo(boolean mostrar) {
         
+        if(_DEBUG_MODE)
+            DBG("Llamando método mostrarNuevo(boolean mostrar) en Interfaz.java");
+        
         if(mostrar)
         {
             int posX = (desktopPane.getWidth()/2) - (iFAlta.getWidth()/2);
@@ -402,6 +417,9 @@ public class Interfaz {
     }
     
     public void mostrarModificar(boolean mostrar) {
+        
+        if(_DEBUG_MODE)
+            DBG("Llamando método mostrarModificar(boolean mostrar) en Interfaz.java");
         
         if(mostrar)
         {
@@ -416,6 +434,9 @@ public class Interfaz {
     
     public void mostrarMostrarRegistros(boolean mostrar)
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método mostrarMostrarRegistros(boolean mostrar) en Interfaz.java");
+        
         if(mostrar)
         {
             int posX = (desktopPane.getWidth()/2) - (iFModificar.getWidth()/2);
@@ -430,10 +451,18 @@ public class Interfaz {
     private void actionListeners()
     {
         itemSalir.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Item 'itemSalir' seleccionado en Interfaz.java");
+            
             System.exit(0);
         });
         
         botonAltaGuardar.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Botón 'botonAltaGuardar' presionado en Interfaz.java");
+            
             try {
                 if(iConexion.crearRegistro(fieldAltaNombre.getText(), fieldAltaApellidos.getText(), 
                         fieldAltaTelefono.getText(), fieldAltaAvenida.getText(), fieldAltaNumero.getText(), 
@@ -448,10 +477,18 @@ public class Interfaz {
         });
                         
         botonAltaCancelar.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Botón 'botonAltaCancelar' presionado en Interfaz.java");
+            
             mostrarNuevo(false);
         });
         
         botonModificarGuardar.addActionListener((ActionEvent e) ->{
+            
+            if(_DEBUG_MODE)
+                DBG("Botón 'botonModificarGuardar' presionado en Interfaz.java");
+            
 //            try {
 //                if(iConexion.buscarRegistros("NOMBRE"))
 //                {
@@ -472,18 +509,34 @@ public class Interfaz {
         });
         
         botonModificarCancelar.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Botón 'botonModificarCancelar' presionado en Interfaz.java");
+            
             mostrarModificar(false);
         });
         
         itemNuevo.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Item 'itemNuevo' seleccionado en Interfaz.java");
+            
             mostrarNuevo(true);
         });
         
         itemModificar.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Item 'itemModificar' seleccionado en Interfaz.java");
+            
             mostrarModificar(true);
         });
         
         itemMostrarRegistros.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Itemm 'itemMostrarRegistros' seleccionado en Interfaz.java");
+            
             mostrarMostrarRegistros(true);
         });
         
@@ -539,6 +592,9 @@ public class Interfaz {
     
     public void limpiarCampos(int modulo)
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método limpiarCampos(int Modulo) en Interfaz.java");
+        
         switch(modulo)
         {
             case _ALTA:

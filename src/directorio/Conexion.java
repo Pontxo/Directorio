@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Conexion {
+public class Conexion implements Configuracion{
     
     ResultSetMetaData metaDatos;
     DefaultTableModel modelo;
@@ -33,11 +33,16 @@ public class Conexion {
     
     public Connection createDatabaseConnection() throws ClassNotFoundException, SQLException
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método createDatabaseConnection() en Conexion.java");
+        
         try
         {
             String driver = "com.mysql.jdbc.Driver";
             Class.forName(driver);
-            DBG("Class.forName(driver) Success!!!");
+            
+            if(_DEBUG_MODE)
+                DBG("Llamada a método Class.forName(driver) exitosa");
         }
         catch(ClassNotFoundException e)
         {
@@ -47,7 +52,7 @@ public class Conexion {
         {   
             String url = "jdbc:mysql://localhost:3306/basededatos?"+"user=root&password=";
             Connection c = DriverManager.getConnection(url);
-            DBG("getConnection(url) Success!!!");
+            DBG("Llamada a método DriverManager.getConnection(url) exitosa");
             return c;
         }
         catch(SQLException e)
@@ -59,6 +64,9 @@ public class Conexion {
     
     public boolean crearRegistro(String nombre, String apellidos, String telefono, String avenida, String numero, String colonia, String codigoPostal) throws ClassNotFoundException, SQLException
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método crearRegistro() en Conexion.java");
+        
         if(validarRegistroNuevo(nombre, apellidos, telefono, avenida, numero, colonia, codigoPostal))
         {
             //CAMBIAR A PREPARESTATEMENT
@@ -83,14 +91,22 @@ public class Conexion {
         
     }
     
+    //Valida la alta de un registro siempre y cuando todos los campos contenga datos.
     public boolean validarRegistroNuevo(String nombre, String apellidos, String telefono, String avenida, String numero, String colonia, String codigoPostal)
-    {        
+    {
+        if(_DEBUG_MODE)
+            DBG("Llamando método validarRegistroNuevo() en Conexion.java");
+        
         return !(nombre.equals("") || apellidos.equals("") || telefono.equals("") || avenida.equals("") 
                 || numero.equals("") || colonia.equals("") || codigoPostal.equals(""));
     }
     
+    //Por ahora muestra todos los registros, se necesita agregar el codigo para busqueda.
     public boolean buscarRegistros(String dato) throws SQLException
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método buscarRegistros() en Conexion.java");
+        
         Statement st;
         try {
             st = createDatabaseConnection().createStatement();
@@ -108,6 +124,10 @@ public class Conexion {
     
     public ResultSet consultar(String columna, String dato)
     {
+        
+        if(_DEBUG_MODE)
+            DBG("Llamando método consultar() en Conexion.java");
+        
         ResultSet resultado = null;
         String sql = "SELECT 'columna' FROM USUARIOS WHERE 'columna' LIKE 'dato'";
         try{
@@ -125,6 +145,9 @@ public class Conexion {
     //Metodo para mostrar todos los registros de la base de datos
     public JScrollPane mostrarConsulta() throws ClassNotFoundException, SQLException
     {
+        if(_DEBUG_MODE)
+            DBG("Llamando método mostrarConsulta() en Conexion.java");
+        
         modelo_prueba = new DefaultTableModel();
         tabla_prueba = new JTable(modelo_prueba);
         scroll_prueba = new JScrollPane();
