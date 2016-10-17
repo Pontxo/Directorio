@@ -458,6 +458,14 @@ public class Interfaz implements Configuracion {
             System.exit(0);
         });
         
+        botonSalir.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Botón botonSalir seleccionado en Interfaz.java");
+            
+            System.exit(0);
+        });
+        
         botonAltaGuardar.addActionListener((ActionEvent e) -> {
             
             if(_DEBUG_MODE)
@@ -524,7 +532,23 @@ public class Interfaz implements Configuracion {
             mostrarNuevo(true);
         });
         
+        botonNuevo.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Item botonNuevo seleccionado en Interfaz.java");
+            
+            mostrarNuevo(true);
+        });
+        
         itemModificar.addActionListener((ActionEvent e) -> {
+            
+            if(_DEBUG_MODE)
+                DBG("Item 'itemModificar' seleccionado en Interfaz.java");
+            
+            mostrarModificar(true);
+        });
+        
+        botonModificar.addActionListener((ActionEvent e) -> {
             
             if(_DEBUG_MODE)
                 DBG("Item 'itemModificar' seleccionado en Interfaz.java");
